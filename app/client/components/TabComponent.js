@@ -1,13 +1,13 @@
 import React from 'react';
 import * as bs from 'react-bootstrap';
 // import 'react-colors-picker/assets/index.css';
-import ColorPicker from 'react-colors-picker';
+import ColorPicker from 'react-simple-colorpicker';
 
 class TabComponent extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      key: 2
+      color_bg: 'rgba(255, 255, 0, 0.5)'
     };
     this.handleSelect = this.handleSelect.bind(this);
     this.cp_bg = this.cp_bg.bind(this);
@@ -18,10 +18,7 @@ class TabComponent extends React.Component {
   }
 
   cp_bg(data) {
-    this.setState({
-      back_color: { color: data.color, alpha: data.alpha }
-    });
-    console.log(this.state);
+    console.log(data);
   }
 
   render() {
@@ -67,13 +64,7 @@ class TabComponent extends React.Component {
         </bs.Tab>
 
         <bs.Tab eventKey={2} title="Colors">
-          <div style={{ margin: '20px 20px 20px', textAlign: 'center' }}>
-            <ColorPicker
-              animation="slide-up"
-              mode="RGB"
-              ref="fdsdf"
-              onChange={this.cp_bg} />
-          </div>
+          <ColorPicker color={this.state.color_bg} onChange={this.cp_bg} opacitySlider />
         </bs.Tab>
         <bs.Tab eventKey={3} title="Borders">Tab 4 content</bs.Tab>
       </bs.Tabs>
