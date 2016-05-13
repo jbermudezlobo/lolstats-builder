@@ -22,7 +22,7 @@ class Main extends React.Component {
           </bs.Row>
           <hr/>
           <bs.Row>
-            <bs.Col xs={12}>
+            <bs.Col xs={6}>
               <TabComponent />
             </bs.Col>
           </bs.Row>
