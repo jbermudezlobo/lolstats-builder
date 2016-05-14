@@ -10,12 +10,7 @@ class ColorPicker extends ReactCSS.Component {
     super(props);
     this.state = {
       displayColorPicker: false,
-      color: {
-        r: '241',
-        g: '112',
-        b: '19',
-        a: '0.5',
-      },
+      color: this.props.defaultColor
     };
     ['handleClick', 'handleClose', 'handleChange', 'handleColor'].forEach(m => { this[m] = this[m].bind(this); return null; });
   }
@@ -55,14 +50,14 @@ class ColorPicker extends ReactCSS.Component {
     };
     const popover = {
       position: 'absolute',
-      zIndex: '2',
+      zIndex: 2,
     };
     const cover = {
       position: 'fixed',
-      top: '0',
-      right: '0',
-      bottom: '0',
-      left: '0',
+      top: 0,
+      right: 0,
+      bottom: 0,
+      left: 0,
     };
     return (
       <div>

@@ -21864,16 +21864,27 @@
 
 	var _warning2 = _interopRequireDefault(_warning);
 
+	var warned = {};
+
 	function deprecated(propType, explanation) {
 	  return function validate(props, propName, componentName) {
 	    if (props[propName] != null) {
-	      _warning2['default'](false, '"' + propName + '" property of "' + componentName + '" has been deprecated.\n' + explanation);
+	      var message = '"' + propName + '" property of "' + componentName + '" has been deprecated.\n' + explanation;
+	      if (!warned[message]) {
+	        _warning2['default'](false, message);
+	        warned[message] = true;
+	      }
 	    }
 
 	    return propType(props, propName, componentName);
 	  };
 	}
 
+	function _resetWarned() {
+	  warned = {};
+	}
+
+	deprecated._resetWarned = _resetWarned;
 	module.exports = exports['default'];
 
 /***/ },
@@ -55815,11 +55826,27 @@
 
 	    _this.state = {
 	      key: 2,
-	      color_bg: 'rgba(255, 255, 0, 0.5)'
+	      data: {
+	        load_animation: 'flipInY',
+	        show_champion: true,
+	        show_winrate: true,
+	        show_tier: true,
+	        show_web: true,
+	        align: 'center',
+	        colors: {
+	          back_color: { r: 255, g: 0, b: 0, a: 1 },
+	          text_color: { r: 255, g: 255, b: 0, a: 1 },
+	          back_border_color: { r: 255, g: 0, b: 255, a: 1 },
+	          champ_border_color: { r: 0, g: 255, b: 0, a: 1 },
+	          back_shadow_color: { r: 0, g: 0, b: 255, a: 1 },
+	          champ_shadow_color: { r: 255, g: 100, b: 255, a: 1 },
+	          text_shadow_color: { r: 255, g: 0, b: 100, a: 1 }
+	        }
+	      }
 	    };
-	    _this.handleSelect = _this.handleSelect.bind(_this);
-	    _this.rgbaToString = _this.rgbaToString.bind(_this);
-	    _this.cp_bg = _this.cp_bg.bind(_this);
+	    ['handleSelect', 'rgbaToString', 'cp_bg', 'cp_text', 'cp_bbc', 'cp_cbc', 'cp_bsc', 'cp_csc', 'cp_tsc'].forEach(function (m) {
+	      _this[m] = _this[m].bind(_this);return null;
+	    });
 	    return _this;
 	  }
 
@@ -55834,9 +55861,42 @@
 	      return 'rgba(' + color.r + ', ' + color.g + ', ' + color.b + ', ' + color.a + ')';
 	    }
 	  }, {
+	    key: 'stringToRGBA',
+	    value: function stringToRGBA(color) {}
+	  }, {
 	    key: 'cp_bg',
 	    value: function cp_bg(color) {
-	      console.log(this.rgbaToString(color));
+	      this.setState(Object.assign(this.state, { data: Object.assign(this.state.data, { colors: Object.assign(this.state.data.colors, { text_color: color }) }) }));
+	    }
+	  }, {
+	    key: 'cp_text',
+	    value: function cp_text(color) {
+	      this.setState(Object.assign(this.state, { data: Object.assign(this.state.data, { colors: Object.assign(this.state.data.colors, { back_border_color: color }) }) }));
+	    }
+	  }, {
+	    key: 'cp_bbc',
+	    value: function cp_bbc(color) {
+	      this.setState(Object.assign(this.state, { data: Object.assign(this.state.data, { colors: Object.assign(this.state.data.colors, { champ_border_color: color }) }) }));
+	    }
+	  }, {
+	    key: 'cp_cbc',
+	    value: function cp_cbc(color) {
+	      this.setState(Object.assign(this.state, { data: Object.assign(this.state.data, { colors: Object.assign(this.state.data.colors, { back_shadow_color: color }) }) }));
+	    }
+	  }, {
+	    key: 'cp_bsc',
+	    value: function cp_bsc(color) {
+	      this.setState(Object.assign(this.state, { data: Object.assign(this.state.data, { colors: Object.assign(this.state.data.colors, { back_shadow_color: color }) }) }));
+	    }
+	  }, {
+	    key: 'cp_csc',
+	    value: function cp_csc(color) {
+	      this.setState(Object.assign(this.state, { data: Object.assign(this.state.data, { colors: Object.assign(this.state.data.colors, { champ_shadow_color: color }) }) }));
+	    }
+	  }, {
+	    key: 'cp_tsc',
+	    value: function cp_tsc(color) {
+	      this.setState(Object.assign(this.state, { data: Object.assign(this.state.data, { colors: Object.assign(this.state.data.colors, { text_shadow_color: color }) }) }));
 	    }
 	  }, {
 	    key: 'render',
@@ -55995,17 +56055,97 @@
 	                _react2.default.createElement(
 	                  'td',
 	                  null,
-	                  _react2.default.createElement(_ColorPicker2.default, { returnColor: this.cp_bg })
+	                  _react2.default.createElement(_ColorPicker2.default, { returnColor: this.cp_bg, defaultColor: this.state.data.colors.back_color })
+	                )
+	              ),
+	              _react2.default.createElement(
+	                'tr',
+	                null,
+	                _react2.default.createElement(
+	                  'td',
+	                  null,
+	                  'Text color'
+	                ),
+	                _react2.default.createElement(
+	                  'td',
+	                  null,
+	                  _react2.default.createElement(_ColorPicker2.default, { returnColor: this.cp_text, defaultColor: this.state.data.colors.text_color })
+	                )
+	              ),
+	              _react2.default.createElement(
+	                'tr',
+	                null,
+	                _react2.default.createElement(
+	                  'td',
+	                  null,
+	                  'Background border color'
+	                ),
+	                _react2.default.createElement(
+	                  'td',
+	                  null,
+	                  _react2.default.createElement(_ColorPicker2.default, { returnColor: this.cp_bbc, defaultColor: this.state.data.colors.back_border_color })
+	                )
+	              ),
+	              _react2.default.createElement(
+	                'tr',
+	                null,
+	                _react2.default.createElement(
+	                  'td',
+	                  null,
+	                  'Champ border color'
+	                ),
+	                _react2.default.createElement(
+	                  'td',
+	                  null,
+	                  _react2.default.createElement(_ColorPicker2.default, { returnColor: this.cp_cbc, defaultColor: this.state.data.colors.champ_border_color })
+	                )
+	              ),
+	              _react2.default.createElement(
+	                'tr',
+	                null,
+	                _react2.default.createElement(
+	                  'td',
+	                  null,
+	                  'Background shadow color'
+	                ),
+	                _react2.default.createElement(
+	                  'td',
+	                  null,
+	                  _react2.default.createElement(_ColorPicker2.default, { returnColor: this.cp_bsc, defaultColor: this.state.data.colors.back_shadow_color })
+	                )
+	              ),
+	              _react2.default.createElement(
+	                'tr',
+	                null,
+	                _react2.default.createElement(
+	                  'td',
+	                  null,
+	                  'Champ shadow color'
+	                ),
+	                _react2.default.createElement(
+	                  'td',
+	                  null,
+	                  _react2.default.createElement(_ColorPicker2.default, { returnColor: this.cp_csc, defaultColor: this.state.data.colors.champ_shadow_color })
+	                )
+	              ),
+	              _react2.default.createElement(
+	                'tr',
+	                null,
+	                _react2.default.createElement(
+	                  'td',
+	                  null,
+	                  'Text shadow color'
+	                ),
+	                _react2.default.createElement(
+	                  'td',
+	                  null,
+	                  _react2.default.createElement(_ColorPicker2.default, { returnColor: this.cp_tsc, defaultColor: this.state.data.colors.text_shadow_color })
 	                )
 	              )
 	            )
 	          )
 	        ),
-	        _react2.default.createElement(
-	          bs.Tab,
-	          { eventKey: 3, title: 'Borders' },
-	          'Tab 4 content'
-	        )
+	        _react2.default.createElement(bs.Tab, { eventKey: 3, title: 'Borders' })
 	      );
 	    }
 	  }]);
@@ -56057,12 +56197,7 @@
 
 	    _this.state = {
 	      displayColorPicker: false,
-	      color: {
-	        r: '241',
-	        g: '112',
-	        b: '19',
-	        a: '0.5'
-	      }
+	      color: _this.props.defaultColor
 	    };
 	    ['handleClick', 'handleClose', 'handleChange', 'handleColor'].forEach(function (m) {
 	      _this[m] = _this[m].bind(_this);return null;
@@ -56111,14 +56246,14 @@
 	      };
 	      var popover = {
 	        position: 'absolute',
-	        zIndex: '2'
+	        zIndex: 2
 	      };
 	      var cover = {
 	        position: 'fixed',
-	        top: '0',
-	        right: '0',
-	        bottom: '0',
-	        left: '0'
+	        top: 0,
+	        right: 0,
+	        bottom: 0,
+	        left: 0
 	      };
 	      return _react2.default.createElement(
 	        'div',
@@ -75969,7 +76104,7 @@
 	  }
 	});
 
-	var _Compact = __webpack_require__(624);
+	var _Compact = __webpack_require__(625);
 
 	Object.defineProperty(exports, 'CompactPicker', {
 	  enumerable: true,
@@ -75978,7 +76113,7 @@
 	  }
 	});
 
-	var _Material = __webpack_require__(633);
+	var _Material = __webpack_require__(634);
 
 	Object.defineProperty(exports, 'MaterialPicker', {
 	  enumerable: true,
@@ -75987,7 +76122,7 @@
 	  }
 	});
 
-	var _Photoshop = __webpack_require__(634);
+	var _Photoshop = __webpack_require__(635);
 
 	Object.defineProperty(exports, 'PhotoshopPicker', {
 	  enumerable: true,
@@ -75996,7 +76131,7 @@
 	  }
 	});
 
-	var _Sketch = __webpack_require__(638);
+	var _Sketch = __webpack_require__(639);
 
 	Object.defineProperty(exports, 'SketchPicker', {
 	  enumerable: true,
@@ -76005,7 +76140,7 @@
 	  }
 	});
 
-	var _Slider = __webpack_require__(641);
+	var _Slider = __webpack_require__(642);
 
 	Object.defineProperty(exports, 'SliderPicker', {
 	  enumerable: true,
@@ -76014,7 +76149,7 @@
 	  }
 	});
 
-	var _Swatches = __webpack_require__(645);
+	var _Swatches = __webpack_require__(646);
 
 	Object.defineProperty(exports, 'SwatchesPicker', {
 	  enumerable: true,
@@ -76062,15 +76197,15 @@
 
 	var _common = __webpack_require__(607);
 
-	var _ChromeFields = __webpack_require__(621);
+	var _ChromeFields = __webpack_require__(622);
 
 	var _ChromeFields2 = _interopRequireDefault(_ChromeFields);
 
-	var _ChromePointer = __webpack_require__(622);
+	var _ChromePointer = __webpack_require__(623);
 
 	var _ChromePointer2 = _interopRequireDefault(_ChromePointer);
 
-	var _ChromePointerCircle = __webpack_require__(623);
+	var _ChromePointerCircle = __webpack_require__(624);
 
 	var _ChromePointerCircle2 = _interopRequireDefault(_ChromePointerCircle);
 
@@ -77688,11 +77823,11 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _merge = __webpack_require__(602);
+	var _merge = __webpack_require__(618);
 
 	var _merge2 = _interopRequireDefault(_merge);
 
-	var _lodash = __webpack_require__(618);
+	var _lodash = __webpack_require__(619);
 
 	var _lodash2 = _interopRequireDefault(_lodash);
 
@@ -77700,7 +77835,7 @@
 
 	var _lodash4 = _interopRequireDefault(_lodash3);
 
-	var _color = __webpack_require__(619);
+	var _color = __webpack_require__(620);
 
 	var _color2 = _interopRequireDefault(_color);
 
@@ -77780,6 +77915,187 @@
 
 /***/ },
 /* 618 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/*!
+	 * @name JavaScript/NodeJS Merge v1.2.0
+	 * @author yeikos
+	 * @repository https://github.com/yeikos/js.merge
+
+	 * Copyright 2014 yeikos - MIT license
+	 * https://raw.github.com/yeikos/js.merge/master/LICENSE
+	 */
+
+	;(function(isNode) {
+
+		/**
+		 * Merge one or more objects 
+		 * @param bool? clone
+		 * @param mixed,... arguments
+		 * @return object
+		 */
+
+		var Public = function(clone) {
+
+			return merge(clone === true, false, arguments);
+
+		}, publicName = 'merge';
+
+		/**
+		 * Merge two or more objects recursively 
+		 * @param bool? clone
+		 * @param mixed,... arguments
+		 * @return object
+		 */
+
+		Public.recursive = function(clone) {
+
+			return merge(clone === true, true, arguments);
+
+		};
+
+		/**
+		 * Clone the input removing any reference
+		 * @param mixed input
+		 * @return mixed
+		 */
+
+		Public.clone = function(input) {
+
+			var output = input,
+				type = typeOf(input),
+				index, size;
+
+			if (type === 'array') {
+
+				output = [];
+				size = input.length;
+
+				for (index=0;index<size;++index)
+
+					output[index] = Public.clone(input[index]);
+
+			} else if (type === 'object') {
+
+				output = {};
+
+				for (index in input)
+
+					output[index] = Public.clone(input[index]);
+
+			}
+
+			return output;
+
+		};
+
+		/**
+		 * Merge two objects recursively
+		 * @param mixed input
+		 * @param mixed extend
+		 * @return mixed
+		 */
+
+		function merge_recursive(base, extend) {
+
+			if (typeOf(base) !== 'object')
+
+				return extend;
+
+			for (var key in extend) {
+
+				if (typeOf(base[key]) === 'object' && typeOf(extend[key]) === 'object') {
+
+					base[key] = merge_recursive(base[key], extend[key]);
+
+				} else {
+
+					base[key] = extend[key];
+
+				}
+
+			}
+
+			return base;
+
+		}
+
+		/**
+		 * Merge two or more objects
+		 * @param bool clone
+		 * @param bool recursive
+		 * @param array argv
+		 * @return object
+		 */
+
+		function merge(clone, recursive, argv) {
+
+			var result = argv[0],
+				size = argv.length;
+
+			if (clone || typeOf(result) !== 'object')
+
+				result = {};
+
+			for (var index=0;index<size;++index) {
+
+				var item = argv[index],
+
+					type = typeOf(item);
+
+				if (type !== 'object') continue;
+
+				for (var key in item) {
+
+					var sitem = clone ? Public.clone(item[key]) : item[key];
+
+					if (recursive) {
+
+						result[key] = merge_recursive(result[key], sitem);
+
+					} else {
+
+						result[key] = sitem;
+
+					}
+
+				}
+
+			}
+
+			return result;
+
+		}
+
+		/**
+		 * Get type of variable
+		 * @param mixed input
+		 * @return string
+		 *
+		 * @see http://jsperf.com/typeofvar
+		 */
+
+		function typeOf(input) {
+
+			return ({}).toString.call(input).slice(8, -1).toLowerCase();
+
+		}
+
+		if (isNode) {
+
+			module.exports = Public;
+
+		} else {
+
+			window[publicName] = Public;
+
+		}
+
+	})(typeof module === 'object' && module && typeof module.exports === 'object' && module.exports);
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(435)(module)))
+
+/***/ },
+/* 619 */
 /***/ function(module, exports) {
 
 	/**
@@ -77920,7 +78236,7 @@
 
 
 /***/ },
-/* 619 */
+/* 620 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -77928,7 +78244,7 @@
 	  value: true
 	});
 
-	var _tinycolor = __webpack_require__(620);
+	var _tinycolor = __webpack_require__(621);
 
 	var _tinycolor2 = _interopRequireDefault(_tinycolor);
 
@@ -77981,7 +78297,7 @@
 	};
 
 /***/ },
-/* 620 */
+/* 621 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;// jscs: disable
@@ -79153,7 +79469,7 @@
 
 
 /***/ },
-/* 621 */
+/* 622 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -79174,7 +79490,7 @@
 
 	var _reactcss2 = _interopRequireDefault(_reactcss);
 
-	var _color = __webpack_require__(619);
+	var _color = __webpack_require__(620);
 
 	var _color2 = _interopRequireDefault(_color);
 
@@ -79440,7 +79756,7 @@
 	exports.default = ChromeFields;
 
 /***/ },
-/* 622 */
+/* 623 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -79517,7 +79833,7 @@
 	exports.default = ChromePointer;
 
 /***/ },
-/* 623 */
+/* 624 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -79593,7 +79909,7 @@
 	exports.default = ChromePointerCircle;
 
 /***/ },
-/* 624 */
+/* 625 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -79614,7 +79930,7 @@
 
 	var _reactcss2 = _interopRequireDefault(_reactcss);
 
-	var _color = __webpack_require__(619);
+	var _color = __webpack_require__(620);
 
 	var _color2 = _interopRequireDefault(_color);
 
@@ -79622,15 +79938,15 @@
 
 	var _reactAddonsShallowCompare2 = _interopRequireDefault(_reactAddonsShallowCompare);
 
-	var _reactMaterialDesign = __webpack_require__(625);
+	var _reactMaterialDesign = __webpack_require__(626);
 
 	var _common = __webpack_require__(607);
 
-	var _CompactColor = __webpack_require__(631);
+	var _CompactColor = __webpack_require__(632);
 
 	var _CompactColor2 = _interopRequireDefault(_CompactColor);
 
-	var _CompactFields = __webpack_require__(632);
+	var _CompactFields = __webpack_require__(633);
 
 	var _CompactFields2 = _interopRequireDefault(_CompactFields);
 
@@ -79729,7 +80045,7 @@
 	exports.default = (0, _common.ColorWrap)(Compact);
 
 /***/ },
-/* 625 */
+/* 626 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -79740,15 +80056,15 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _libComponentsRaised = __webpack_require__(626);
+	var _libComponentsRaised = __webpack_require__(627);
 
 	var _libComponentsRaised2 = _interopRequireDefault(_libComponentsRaised);
 
-	var _libComponentsTile = __webpack_require__(627);
+	var _libComponentsTile = __webpack_require__(628);
 
 	var _libComponentsTile2 = _interopRequireDefault(_libComponentsTile);
 
-	var _libComponentsTabs = __webpack_require__(628);
+	var _libComponentsTabs = __webpack_require__(629);
 
 	var _libComponentsTabs2 = _interopRequireDefault(_libComponentsTabs);
 
@@ -79758,7 +80074,7 @@
 
 
 /***/ },
-/* 626 */
+/* 627 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* jshint node: true, esnext: true */
@@ -79890,7 +80206,7 @@
 	exports.default = Raised;
 
 /***/ },
-/* 627 */
+/* 628 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* jshint node: true, esnext: true */
@@ -80028,7 +80344,7 @@
 
 
 /***/ },
-/* 628 */
+/* 629 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -80053,11 +80369,11 @@
 
 	var _lodash2 = _interopRequireDefault(_lodash);
 
-	var _Tab = __webpack_require__(629);
+	var _Tab = __webpack_require__(630);
 
 	var _Tab2 = _interopRequireDefault(_Tab);
 
-	var _Link = __webpack_require__(630);
+	var _Link = __webpack_require__(631);
 
 	var _Link2 = _interopRequireDefault(_Link);
 
@@ -80304,7 +80620,7 @@
 	exports.default = Tabs;
 
 /***/ },
-/* 629 */
+/* 630 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -80405,7 +80721,7 @@
 	exports.default = Tab;
 
 /***/ },
-/* 630 */
+/* 631 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -80490,7 +80806,7 @@
 	exports.default = Link;
 
 /***/ },
-/* 631 */
+/* 632 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -80594,7 +80910,7 @@
 	exports.default = CompactColor;
 
 /***/ },
-/* 632 */
+/* 633 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -80753,7 +81069,7 @@
 	exports.default = CompactColor;
 
 /***/ },
-/* 633 */
+/* 634 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -80774,7 +81090,7 @@
 
 	var _reactcss2 = _interopRequireDefault(_reactcss);
 
-	var _color = __webpack_require__(619);
+	var _color = __webpack_require__(620);
 
 	var _color2 = _interopRequireDefault(_color);
 
@@ -80782,7 +81098,7 @@
 
 	var _reactAddonsShallowCompare2 = _interopRequireDefault(_reactAddonsShallowCompare);
 
-	var _reactMaterialDesign = __webpack_require__(625);
+	var _reactMaterialDesign = __webpack_require__(626);
 
 	var _common = __webpack_require__(607);
 
@@ -80940,7 +81256,7 @@
 	exports.default = (0, _common.ColorWrap)(Material);
 
 /***/ },
-/* 634 */
+/* 635 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -80967,15 +81283,15 @@
 
 	var _common = __webpack_require__(607);
 
-	var _PhotoshopFields = __webpack_require__(635);
+	var _PhotoshopFields = __webpack_require__(636);
 
 	var _PhotoshopFields2 = _interopRequireDefault(_PhotoshopFields);
 
-	var _PhotoshopPointerCircle = __webpack_require__(636);
+	var _PhotoshopPointerCircle = __webpack_require__(637);
 
 	var _PhotoshopPointerCircle2 = _interopRequireDefault(_PhotoshopPointerCircle);
 
-	var _PhotoshopPointer = __webpack_require__(637);
+	var _PhotoshopPointer = __webpack_require__(638);
 
 	var _PhotoshopPointer2 = _interopRequireDefault(_PhotoshopPointer);
 
@@ -81204,7 +81520,7 @@
 	exports.default = (0, _common.ColorWrap)(Photoshop);
 
 /***/ },
-/* 635 */
+/* 636 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -81225,7 +81541,7 @@
 
 	var _reactcss2 = _interopRequireDefault(_reactcss);
 
-	var _color = __webpack_require__(619);
+	var _color = __webpack_require__(620);
 
 	var _color2 = _interopRequireDefault(_color);
 
@@ -81407,7 +81723,7 @@
 	exports.default = PhotoshopPicker;
 
 /***/ },
-/* 636 */
+/* 637 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -81495,7 +81811,7 @@
 	exports.default = PhotoshopPointerCircle;
 
 /***/ },
-/* 637 */
+/* 638 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -81612,7 +81928,7 @@
 	exports.default = PhotoshopPointerCircle;
 
 /***/ },
-/* 638 */
+/* 639 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -81639,11 +81955,11 @@
 
 	var _common = __webpack_require__(607);
 
-	var _SketchFields = __webpack_require__(639);
+	var _SketchFields = __webpack_require__(640);
 
 	var _SketchFields2 = _interopRequireDefault(_SketchFields);
 
-	var _SketchPresetColors = __webpack_require__(640);
+	var _SketchPresetColors = __webpack_require__(641);
 
 	var _SketchPresetColors2 = _interopRequireDefault(_SketchPresetColors);
 
@@ -81801,7 +82117,7 @@
 	exports.default = (0, _common.ColorWrap)(Sketch);
 
 /***/ },
-/* 639 */
+/* 640 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -81822,7 +82138,7 @@
 
 	var _reactcss2 = _interopRequireDefault(_reactcss);
 
-	var _color = __webpack_require__(619);
+	var _color = __webpack_require__(620);
 
 	var _color2 = _interopRequireDefault(_color);
 
@@ -81967,7 +82283,7 @@
 	exports.default = ShetchFields;
 
 /***/ },
-/* 640 */
+/* 641 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -82097,7 +82413,7 @@
 	exports.default = SketchPresetColors;
 
 /***/ },
-/* 641 */
+/* 642 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -82124,11 +82440,11 @@
 
 	var _common = __webpack_require__(607);
 
-	var _SliderSwatches = __webpack_require__(642);
+	var _SliderSwatches = __webpack_require__(643);
 
 	var _SliderSwatches2 = _interopRequireDefault(_SliderSwatches);
 
-	var _SliderPointer = __webpack_require__(644);
+	var _SliderPointer = __webpack_require__(645);
 
 	var _SliderPointer2 = _interopRequireDefault(_SliderPointer);
 
@@ -82201,7 +82517,7 @@
 	exports.default = (0, _common.ColorWrap)(Slider);
 
 /***/ },
-/* 642 */
+/* 643 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -82226,7 +82542,7 @@
 
 	var _reactAddonsShallowCompare2 = _interopRequireDefault(_reactAddonsShallowCompare);
 
-	var _SliderSwatch = __webpack_require__(643);
+	var _SliderSwatch = __webpack_require__(644);
 
 	var _SliderSwatch2 = _interopRequireDefault(_SliderSwatch);
 
@@ -82319,7 +82635,7 @@
 	exports.default = SliderSwatches;
 
 /***/ },
-/* 643 */
+/* 644 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -82416,7 +82732,7 @@
 	exports.default = SliderSwatch;
 
 /***/ },
-/* 644 */
+/* 645 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -82493,7 +82809,7 @@
 	exports.default = SliderPointer;
 
 /***/ },
-/* 645 */
+/* 646 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -82512,11 +82828,11 @@
 
 	var _reactcss2 = _interopRequireDefault(_reactcss);
 
-	var _color = __webpack_require__(619);
+	var _color = __webpack_require__(620);
 
 	var _color2 = _interopRequireDefault(_color);
 
-	var _materialColors = __webpack_require__(646);
+	var _materialColors = __webpack_require__(647);
 
 	var _materialColors2 = _interopRequireDefault(_materialColors);
 
@@ -82526,9 +82842,9 @@
 
 	var _common = __webpack_require__(607);
 
-	var _reactMaterialDesign = __webpack_require__(625);
+	var _reactMaterialDesign = __webpack_require__(626);
 
-	var _SwatchesGroup = __webpack_require__(647);
+	var _SwatchesGroup = __webpack_require__(648);
 
 	var _SwatchesGroup2 = _interopRequireDefault(_SwatchesGroup);
 
@@ -82629,7 +82945,7 @@
 	exports.default = (0, _common.ColorWrap)(Swatches);
 
 /***/ },
-/* 646 */
+/* 647 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function(root, factory) {
@@ -82646,7 +82962,7 @@
 
 
 /***/ },
-/* 647 */
+/* 648 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -82669,7 +82985,7 @@
 
 	var _reactAddonsShallowCompare2 = _interopRequireDefault(_reactAddonsShallowCompare);
 
-	var _SwatchesColor = __webpack_require__(648);
+	var _SwatchesColor = __webpack_require__(649);
 
 	var _SwatchesColor2 = _interopRequireDefault(_SwatchesColor);
 
@@ -82738,7 +83054,7 @@
 	exports.default = SwatchesGroup;
 
 /***/ },
-/* 648 */
+/* 649 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
