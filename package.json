@@ -17,6 +17,7 @@
     "react-bootstrap": "^0.29.4",
     "react-color": "^2.1.0",
     "react-dom": "^15.0.2",
+    "react-html5-slider": "^0.1.2",
     "reactcss": "^0.4.5"
   },
   "devDependencies": {

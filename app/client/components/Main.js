@@ -23,7 +23,7 @@ class Main extends React.Component {
           <hr/>
           <bs.Row>
             <bs.Col xs={6}>
-              <TabComponent />
+              <TabComponent data={this.props.builderData}/>
             </bs.Col>
           </bs.Row>
         </bs.Panel>
