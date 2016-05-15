@@ -55941,7 +55941,7 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      console.log(this.state);
+	      console.log(JSON.stringify(this.state));
 	      return _react2.default.createElement(
 	        bs.Tabs,
 	        { activeKey: this.state.key, onSelect: this.handleSelect, id: 'builder.tabs', justified: true },

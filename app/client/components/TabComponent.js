@@ -127,7 +127,7 @@ class TabComponent extends React.Component {
   }
 
   render() {
-    console.log(this.state);
+    console.log(JSON.stringify(this.state));
     return (
       <bs.Tabs activeKey={this.state.key} onSelect={this.handleSelect} id='builder.tabs' justified>
         <bs.Tab eventKey={1} title='Info'>
