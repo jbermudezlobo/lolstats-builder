@@ -34,15 +34,15 @@ class ColorPicker extends ReactCSS.Component {
 
   render() {
     const color = {
-      width: '35px',
-      height: '15px',
+      width: '40px',
+      height: '10px',
       borderRadius: '2px',
       background: `rgba(${ this.state.color.r }, ${ this.state.color.g }, ${ this.state.color.b }, ${ this.state.color.a })`,
     };
     const swatch = {
-      margin: '10px',
-      padding: '5px',
-      background: '#fff',
+      margin: '0px',
+      padding: '2px',
+      backgroundImage: 'url(http://www.transparenttextures.com/patterns/dark-denim-3.png)',
       borderRadius: '1px',
       boxShadow: '0 0 0 1px rgba(0,0,0,.1)',
       display: 'inline-block',

@@ -20229,7 +20229,7 @@
 	        _react2.default.createElement(
 	          bs.Panel,
 	          { header: title },
-	          _react2.default.createElement(_TabComponent2.default, { data: this.props.builderData })
+	          _react2.default.createElement(_TabComponent2.default, { data: false })
 	        )
 	      );
 	    }
@@ -55819,7 +55819,10 @@
 	      back_border_width: _this.props.data ? _this.props.data.back_border_width : 0,
 	      back_border_radius: _this.props.data ? _this.props.data.back_border_radius : 0,
 	      champ_border_width: _this.props.data ? _this.props.data.champ_border_width : 0,
-	      champ_border_radius: _this.props.data ? _this.props.data.champ_border_radius : 0
+	      champ_border_radius: _this.props.data ? _this.props.data.champ_border_radius : 0,
+	      back_shadow: _this.props.data ? _this.props.data.back_shadow : { h: 0, v: 0, b: 10 },
+	      champ_shadow: _this.props.data ? _this.props.data.champ_shadow : { h: 0, v: 0, b: 10 },
+	      text_shadow: _this.props.data ? _this.props.data.text_shadow : { h: 0, v: 0, b: 10 }
 	    };
 	    ['getLink', 'setName', 'setChampion', 'setWinrate', 'setTier', 'setWeb', 'handleSelect', 'rgbaToString', 'cp_bg', 'cp_text', 'cp_bbc', 'cp_cbc', 'cp_bsc', 'cp_csc', 'cp_tsc', 'sl_back_border_width', 'sl_back_border_radius', 'sl_champ_border_width', 'sl_champ_border_radius', 'setServer'].forEach(function (m) {
 	      _this[m] = _this[m].bind(_this);return null;
@@ -55828,13 +55831,38 @@
 	  }
 
 	  _createClass(TabComponent, [{
+	    key: 'generateJSON',
+	    value: function generateJSON() {
+	      return {
+	        summoner_name: this.state.summoner_name,
+	        server: this.state.server,
+	        load_animation: this.state.load_animation,
+	        show_champion: this.state.show_champion,
+	        show_winrate: this.state.show_winrate,
+	        show_tier: this.state.show_tier,
+	        show_web: this.state.show_web,
+	        align: this.state.align,
+	        back_color: this.state.back_color,
+	        text_color: this.state.text_color,
+	        back_border_color: this.state.back_border_color,
+	        champ_border_color: this.state.champ_border_color,
+	        back_shadow_color: this.state.back_shadow_color,
+	        champ_shadow_color: this.state.champ_shadow_color,
+	        text_shadow_color: this.state.text_shadow_color,
+	        back_border_width: this.state.back_border_width,
+	        back_border_radius: this.state.back_border_radius,
+	        champ_border_width: this.state.champ_border_width,
+	        champ_border_radius: this.state.champ_border_radius
+	      };
+	    }
+	  }, {
 	    key: 'getLink',
 	    value: function getLink() {
 	      var _this2 = this;
 
 	      this.setState({ isLoading: true });
 	      console.log('Sending data...');
-	      fetch('/getlink', {
+	      fetch('http://test.lobobot.com/actions/newstats.php', {
 	        method: 'POST',
 	        headers: {
 	          'Content-Type': 'application/json'
@@ -55843,6 +55871,7 @@
 	      }).then(function (response) {
 	        console.log('Data received');
 	        response.json().then(function (_data) {
+	          console.log(_data);
 	          _this2.setState({ resultmessage: _data.message, isLoading: false });
 	        });
 	      });
@@ -56123,172 +56152,264 @@
 	              ),
 	              _react2.default.createElement(
 	                bs.Tab,
-	                { eventKey: 2, title: 'Colors' },
+	                { eventKey: 2, title: 'Style' },
 	                _react2.default.createElement(
 	                  'div',
 	                  { className: 'inside-tab' },
 	                  _react2.default.createElement(
-	                    'table',
-	                    { style: { width: '100%' } },
+	                    bs.ControlLabel,
+	                    null,
+	                    'Background'
+	                  ),
+	                  _react2.default.createElement(
+	                    bs.Row,
+	                    { style: { fontSize: '0.8em', textAlign: 'center' } },
 	                    _react2.default.createElement(
-	                      'tbody',
-	                      null,
-	                      _react2.default.createElement(
-	                        'tr',
-	                        null,
-	                        _react2.default.createElement(
-	                          'td',
-	                          null,
-	                          'Background color'
-	                        ),
-	                        _react2.default.createElement(
-	                          'td',
-	                          null,
-	                          _react2.default.createElement(_ColorPicker2.default, { returnColor: this.cp_bg, defaultColor: this.state.back_color })
-	                        )
-	                      ),
-	                      _react2.default.createElement(
-	                        'tr',
-	                        null,
-	                        _react2.default.createElement(
-	                          'td',
-	                          null,
-	                          'Text color'
-	                        ),
-	                        _react2.default.createElement(
-	                          'td',
-	                          null,
-	                          _react2.default.createElement(_ColorPicker2.default, { returnColor: this.cp_text, defaultColor: this.state.text_color })
-	                        )
-	                      ),
-	                      _react2.default.createElement(
-	                        'tr',
-	                        null,
-	                        _react2.default.createElement(
-	                          'td',
-	                          null,
-	                          'Background border color'
-	                        ),
-	                        _react2.default.createElement(
-	                          'td',
-	                          null,
-	                          _react2.default.createElement(_ColorPicker2.default, { returnColor: this.cp_bbc, defaultColor: this.state.back_border_color })
-	                        )
-	                      ),
-	                      _react2.default.createElement(
-	                        'tr',
-	                        null,
-	                        _react2.default.createElement(
-	                          'td',
-	                          null,
-	                          'Champ border color'
-	                        ),
-	                        _react2.default.createElement(
-	                          'td',
-	                          null,
-	                          _react2.default.createElement(_ColorPicker2.default, { returnColor: this.cp_cbc, defaultColor: this.state.champ_border_color })
-	                        )
-	                      ),
-	                      _react2.default.createElement(
-	                        'tr',
-	                        null,
-	                        _react2.default.createElement(
-	                          'td',
-	                          null,
-	                          'Background shadow color'
-	                        ),
-	                        _react2.default.createElement(
-	                          'td',
-	                          null,
-	                          _react2.default.createElement(_ColorPicker2.default, { returnColor: this.cp_bsc, defaultColor: this.state.back_shadow_color })
-	                        )
-	                      ),
-	                      _react2.default.createElement(
-	                        'tr',
-	                        null,
-	                        _react2.default.createElement(
-	                          'td',
-	                          null,
-	                          'Champ shadow color'
-	                        ),
-	                        _react2.default.createElement(
-	                          'td',
-	                          null,
-	                          _react2.default.createElement(_ColorPicker2.default, { returnColor: this.cp_csc, defaultColor: this.state.champ_shadow_color })
-	                        )
-	                      ),
-	                      _react2.default.createElement(
-	                        'tr',
-	                        null,
-	                        _react2.default.createElement(
-	                          'td',
-	                          null,
-	                          'Text shadow color'
-	                        ),
-	                        _react2.default.createElement(
-	                          'td',
-	                          null,
-	                          _react2.default.createElement(_ColorPicker2.default, { returnColor: this.cp_tsc, defaultColor: this.state.text_shadow_color })
-	                        )
-	                      )
+	                      bs.Col,
+	                      { xs: 3 },
+	                      'Width: ' + this.state.back_border_width + 'px',
+	                      _react2.default.createElement(_reactHtml5Slider2.default, {
+	                        value: this.state.back_border_width,
+	                        handleChange: this.sl_back_border_width,
+	                        step: 1,
+	                        max: 5,
+	                        min: 0
+	                      })
+	                    ),
+	                    _react2.default.createElement(
+	                      bs.Col,
+	                      { xs: 3 },
+	                      'Radius: ' + this.state.back_border_radius + 'px',
+	                      _react2.default.createElement(_reactHtml5Slider2.default, {
+	                        value: this.state.back_border_radius,
+	                        handleChange: this.sl_back_border_radius,
+	                        step: 1,
+	                        max: 30,
+	                        min: 0
+	                      })
+	                    ),
+	                    _react2.default.createElement(
+	                      bs.Col,
+	                      { xs: 3 },
+	                      'Color',
+	                      _react2.default.createElement(_ColorPicker2.default, { returnColor: this.cp_bg, defaultColor: this.state.back_color })
+	                    ),
+	                    _react2.default.createElement(
+	                      bs.Col,
+	                      { xs: 3 },
+	                      'Border',
+	                      _react2.default.createElement(_ColorPicker2.default, { returnColor: this.cp_bbc, defaultColor: this.state.back_border_color })
+	                    )
+	                  ),
+	                  _react2.default.createElement(
+	                    bs.ControlLabel,
+	                    null,
+	                    'Champion'
+	                  ),
+	                  _react2.default.createElement(
+	                    bs.Row,
+	                    { style: { fontSize: '0.8em', textAlign: 'center' } },
+	                    _react2.default.createElement(
+	                      bs.Col,
+	                      { xs: 3 },
+	                      'Width: ' + this.state.champ_border_width + 'px',
+	                      _react2.default.createElement(_reactHtml5Slider2.default, {
+	                        value: this.state.champ_border_width,
+	                        handleChange: this.sl_champ_border_width,
+	                        step: 1,
+	                        max: 5,
+	                        min: 0
+	                      })
+	                    ),
+	                    _react2.default.createElement(
+	                      bs.Col,
+	                      { xs: 3 },
+	                      'Radius: ' + this.state.champ_border_radius + 'px',
+	                      _react2.default.createElement(_reactHtml5Slider2.default, {
+	                        value: this.state.champ_border_radius,
+	                        handleChange: this.sl_champ_border_radius,
+	                        step: 1,
+	                        max: 30,
+	                        min: 0
+	                      })
+	                    ),
+	                    _react2.default.createElement(
+	                      bs.Col,
+	                      { xs: 6 },
+	                      'Color',
+	                      _react2.default.createElement(_ColorPicker2.default, { returnColor: this.cp_cbc, defaultColor: this.state.champ_border_color })
+	                    )
+	                  ),
+	                  _react2.default.createElement(
+	                    bs.ControlLabel,
+	                    null,
+	                    'Text'
+	                  ),
+	                  _react2.default.createElement(
+	                    bs.Row,
+	                    { style: { fontSize: '0.8em', textAlign: 'center' } },
+	                    _react2.default.createElement(
+	                      bs.Col,
+	                      { xs: 3 },
+	                      'Color',
+	                      _react2.default.createElement(_ColorPicker2.default, { returnColor: this.cp_text, defaultColor: this.state.text_color })
+	                    )
+	                  ),
+	                  _react2.default.createElement('br', null),
+	                  _react2.default.createElement('hr', null),
+	                  _react2.default.createElement(
+	                    bs.ControlLabel,
+	                    null,
+	                    'Background shadow'
+	                  ),
+	                  _react2.default.createElement(
+	                    bs.Row,
+	                    { style: { fontSize: '0.8em', textAlign: 'center' } },
+	                    _react2.default.createElement(
+	                      bs.Col,
+	                      { xs: 3 },
+	                      'H: ' + this.state.back_shadow.h + 'px',
+	                      _react2.default.createElement(_reactHtml5Slider2.default, {
+	                        value: this.state.back_shadow.h,
+	                        handleChange: this.sl_back_shadow_h,
+	                        step: 1,
+	                        max: 10,
+	                        min: -10
+	                      })
+	                    ),
+	                    _react2.default.createElement(
+	                      bs.Col,
+	                      { xs: 3 },
+	                      'V: ' + this.state.back_shadow.v + 'px',
+	                      _react2.default.createElement(_reactHtml5Slider2.default, {
+	                        value: this.state.back_shadow.v,
+	                        handleChange: this.sl_back_shadow_v,
+	                        step: 1,
+	                        max: 10,
+	                        min: -10
+	                      })
+	                    ),
+	                    _react2.default.createElement(
+	                      bs.Col,
+	                      { xs: 3 },
+	                      'B: ' + this.state.back_shadow.b + 'px',
+	                      _react2.default.createElement(_reactHtml5Slider2.default, {
+	                        value: this.state.back_shadow.b,
+	                        handleChange: this.sl_back_shadow_b,
+	                        step: 1,
+	                        max: 10,
+	                        min: 0
+	                      })
+	                    ),
+	                    _react2.default.createElement(
+	                      bs.Col,
+	                      { xs: 3 },
+	                      'Color',
+	                      _react2.default.createElement(_ColorPicker2.default, { returnColor: this.cp_bsc, defaultColor: this.state.back_shadow_color })
+	                    )
+	                  ),
+	                  _react2.default.createElement(
+	                    bs.ControlLabel,
+	                    null,
+	                    'Champion shadow'
+	                  ),
+	                  _react2.default.createElement(
+	                    bs.Row,
+	                    { style: { fontSize: '0.8em', textAlign: 'center' } },
+	                    _react2.default.createElement(
+	                      bs.Col,
+	                      { xs: 3 },
+	                      'H: ' + this.state.champ_shadow.h + 'px',
+	                      _react2.default.createElement(_reactHtml5Slider2.default, {
+	                        value: this.state.champ_shadow.h,
+	                        handleChange: this.sl_champ_shadow_h,
+	                        step: 1,
+	                        max: 10,
+	                        min: -10
+	                      })
+	                    ),
+	                    _react2.default.createElement(
+	                      bs.Col,
+	                      { xs: 3 },
+	                      'V: ' + this.state.champ_shadow.v + 'px',
+	                      _react2.default.createElement(_reactHtml5Slider2.default, {
+	                        value: this.state.champ_shadow.v,
+	                        handleChange: this.sl_bchamp_shadow_v,
+	                        step: 1,
+	                        max: 10,
+	                        min: -10
+	                      })
+	                    ),
+	                    _react2.default.createElement(
+	                      bs.Col,
+	                      { xs: 3 },
+	                      'B: ' + this.state.champ_shadow.b + 'px',
+	                      _react2.default.createElement(_reactHtml5Slider2.default, {
+	                        value: this.state.champ_shadow.b,
+	                        handleChange: this.sl_champ_shadow_b,
+	                        step: 1,
+	                        max: 10,
+	                        min: 0
+	                      })
+	                    ),
+	                    _react2.default.createElement(
+	                      bs.Col,
+	                      { xs: 3 },
+	                      'Color',
+	                      _react2.default.createElement(_ColorPicker2.default, { returnColor: this.cp_csc, defaultColor: this.state.champ_shadow_color })
+	                    )
+	                  ),
+	                  _react2.default.createElement(
+	                    bs.ControlLabel,
+	                    null,
+	                    'Text shadow'
+	                  ),
+	                  _react2.default.createElement(
+	                    bs.Row,
+	                    { style: { fontSize: '0.8em', textAlign: 'center' } },
+	                    _react2.default.createElement(
+	                      bs.Col,
+	                      { xs: 3 },
+	                      'H: ' + this.state.text_shadow.h + 'px',
+	                      _react2.default.createElement(_reactHtml5Slider2.default, {
+	                        value: this.state.text_shadow.h,
+	                        handleChange: this.sl_text_shadow_h,
+	                        step: 1,
+	                        max: 10,
+	                        min: -10
+	                      })
+	                    ),
+	                    _react2.default.createElement(
+	                      bs.Col,
+	                      { xs: 3 },
+	                      'V: ' + this.state.text_shadow.v + 'px',
+	                      _react2.default.createElement(_reactHtml5Slider2.default, {
+	                        value: this.state.text_shadow.v,
+	                        handleChange: this.sl_text_shadow_v,
+	                        step: 1,
+	                        max: 10,
+	                        min: -10
+	                      })
+	                    ),
+	                    _react2.default.createElement(
+	                      bs.Col,
+	                      { xs: 3 },
+	                      'B: ' + this.state.text_shadow.b + 'px',
+	                      _react2.default.createElement(_reactHtml5Slider2.default, {
+	                        value: this.state.text_shadow.b,
+	                        handleChange: this.sl_text_shadow_b,
+	                        step: 1,
+	                        max: 10,
+	                        min: 0
+	                      })
+	                    ),
+	                    _react2.default.createElement(
+	                      bs.Col,
+	                      { xs: 3 },
+	                      'Color',
+	                      _react2.default.createElement(_ColorPicker2.default, { returnColor: this.cp_tsc, defaultColor: this.state.text_shadow_color })
 	                    )
 	                  )
-	                )
-	              ),
-	              _react2.default.createElement(
-	                bs.Tab,
-	                { eventKey: 3, title: 'Borders' },
-	                _react2.default.createElement(
-	                  'div',
-	                  { className: 'inside-tab' },
-	                  _react2.default.createElement(
-	                    bs.ControlLabel,
-	                    null,
-	                    'Background border'
-	                  ),
-	                  _react2.default.createElement(_reactHtml5Slider2.default, {
-	                    value: this.state.back_border_width,
-	                    handleChange: this.sl_back_border_width,
-	                    step: 1,
-	                    max: 5,
-	                    min: 0
-	                  }),
-	                  _react2.default.createElement(
-	                    bs.ControlLabel,
-	                    null,
-	                    'Background border radius'
-	                  ),
-	                  _react2.default.createElement(_reactHtml5Slider2.default, {
-	                    value: this.state.back_border_radius,
-	                    handleChange: this.sl_back_border_radius,
-	                    step: 1,
-	                    max: 30,
-	                    min: 0
-	                  }),
-	                  _react2.default.createElement(
-	                    bs.ControlLabel,
-	                    null,
-	                    'Champion border'
-	                  ),
-	                  _react2.default.createElement(_reactHtml5Slider2.default, {
-	                    value: this.state.champ_border_width,
-	                    handleChange: this.sl_champ_border_width,
-	                    step: 1,
-	                    max: 5,
-	                    min: 0
-	                  }),
-	                  _react2.default.createElement(
-	                    bs.ControlLabel,
-	                    null,
-	                    'Champion border radius'
-	                  ),
-	                  _react2.default.createElement(_reactHtml5Slider2.default, {
-	                    value: this.state.champ_border_radius,
-	                    handleChange: this.sl_champ_border_radius,
-	                    step: 1,
-	                    max: 50,
-	                    min: 0
-	                  })
 	                )
 	              )
 	            )
@@ -56378,15 +56499,15 @@
 	    key: 'render',
 	    value: function render() {
 	      var color = {
-	        width: '35px',
-	        height: '15px',
+	        width: '40px',
+	        height: '10px',
 	        borderRadius: '2px',
 	        background: 'rgba(' + this.state.color.r + ', ' + this.state.color.g + ', ' + this.state.color.b + ', ' + this.state.color.a + ')'
 	      };
 	      var swatch = {
-	        margin: '10px',
-	        padding: '5px',
-	        background: '#fff',
+	        margin: '0px',
+	        padding: '2px',
+	        backgroundImage: 'url(http://www.transparenttextures.com/patterns/dark-denim-3.png)',
 	        borderRadius: '1px',
 	        boxShadow: '0 0 0 1px rgba(0,0,0,.1)',
 	        display: 'inline-block',
