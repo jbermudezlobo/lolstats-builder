@@ -15,17 +15,7 @@ class Main extends React.Component {
     return (
       <bs.Col xs={12}>
         <bs.Panel header={title}>
-          <bs.Row>
-            <bs.Col xs={12}>
-              <bs.Button bsStyle="primary">Get link</bs.Button>
-            </bs.Col>
-          </bs.Row>
-          <hr/>
-          <bs.Row>
-            <bs.Col xs={6}>
-              <TabComponent data={this.props.builderData}/>
-            </bs.Col>
-          </bs.Row>
+          <TabComponent data={this.props.builderData}/>
         </bs.Panel>
       </bs.Col>
     );

@@ -20229,29 +20229,7 @@
 	        _react2.default.createElement(
 	          bs.Panel,
 	          { header: title },
-	          _react2.default.createElement(
-	            bs.Row,
-	            null,
-	            _react2.default.createElement(
-	              bs.Col,
-	              { xs: 12 },
-	              _react2.default.createElement(
-	                bs.Button,
-	                { bsStyle: 'primary' },
-	                'Get link'
-	              )
-	            )
-	          ),
-	          _react2.default.createElement('hr', null),
-	          _react2.default.createElement(
-	            bs.Row,
-	            null,
-	            _react2.default.createElement(
-	              bs.Col,
-	              { xs: 6 },
-	              _react2.default.createElement(_TabComponent2.default, { data: this.props.builderData })
-	            )
-	          )
+	          _react2.default.createElement(_TabComponent2.default, { data: this.props.builderData })
 	        )
 	      );
 	    }
@@ -55815,12 +55793,16 @@
 	  function TabComponent(props) {
 	    _classCallCheck(this, TabComponent);
 
+	    // console.log(this.props);
+
 	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(TabComponent).call(this, props));
 
-	    console.log(_this.props);
 	    _this.state = {
+	      isLoading: false,
+	      resultmessage: '',
 	      key: 1,
 	      summoner_name: '',
+	      server: 0,
 	      load_animation: 'flipInY',
 	      show_champion: _this.props.data ? _this.props.data.show_champion : true,
 	      show_winrate: _this.props.data ? _this.props.data.show_winrate : true,
@@ -55839,16 +55821,41 @@
 	      champ_border_width: _this.props.data ? _this.props.data.champ_border_width : 0,
 	      champ_border_radius: _this.props.data ? _this.props.data.champ_border_radius : 0
 	    };
-	    ['setName', 'setChampion', 'setWinrate', 'setTier', 'setWeb', 'handleSelect', 'rgbaToString', 'cp_bg', 'cp_text', 'cp_bbc', 'cp_cbc', 'cp_bsc', 'cp_csc', 'cp_tsc', 'sl_back_border_width', 'sl_back_border_radius', 'sl_champ_border_width', 'sl_champ_border_radius'].forEach(function (m) {
+	    ['getLink', 'setName', 'setChampion', 'setWinrate', 'setTier', 'setWeb', 'handleSelect', 'rgbaToString', 'cp_bg', 'cp_text', 'cp_bbc', 'cp_cbc', 'cp_bsc', 'cp_csc', 'cp_tsc', 'sl_back_border_width', 'sl_back_border_radius', 'sl_champ_border_width', 'sl_champ_border_radius', 'setServer'].forEach(function (m) {
 	      _this[m] = _this[m].bind(_this);return null;
 	    });
 	    return _this;
 	  }
 
 	  _createClass(TabComponent, [{
+	    key: 'getLink',
+	    value: function getLink() {
+	      var _this2 = this;
+
+	      this.setState({ isLoading: true });
+	      console.log('Sending data...');
+	      fetch('/getlink', {
+	        method: 'POST',
+	        headers: {
+	          'Content-Type': 'application/json'
+	        },
+	        body: JSON.stringify(this.state)
+	      }).then(function (response) {
+	        console.log('Data received');
+	        response.json().then(function (_data) {
+	          _this2.setState({ resultmessage: _data.message, isLoading: false });
+	        });
+	      });
+	    }
+	  }, {
 	    key: 'setName',
 	    value: function setName(event) {
 	      this.setState({ summoner_name: event.currentTarget.value });
+	    }
+	  }, {
+	    key: 'setServer',
+	    value: function setServer(event) {
+	      this.setState({ server: event.currentTarget.value });
 	    }
 	  }, {
 	    key: 'setChampion',
@@ -55941,314 +55948,350 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      console.log(JSON.stringify(this.state));
+	      // console.log(JSON.stringify(this.state));
 	      return _react2.default.createElement(
-	        bs.Tabs,
-	        { activeKey: this.state.key, onSelect: this.handleSelect, id: 'builder.tabs', justified: true },
+	        'div',
+	        null,
 	        _react2.default.createElement(
-	          bs.Tab,
-	          { eventKey: 1, title: 'Info' },
+	          bs.Row,
+	          null,
 	          _react2.default.createElement(
-	            'div',
-	            { className: 'inside-tab' },
+	            bs.Col,
+	            { xs: 12 },
 	            _react2.default.createElement(
-	              bs.ControlLabel,
-	              null,
-	              'Summoner name'
-	            ),
-	            _react2.default.createElement(bs.FormControl, {
-	              type: 'text',
-	              placeholder: 'Lobo Bot',
-	              onChange: this.setName
-	            }),
-	            _react2.default.createElement('br', null),
-	            _react2.default.createElement(
-	              bs.ControlLabel,
-	              null,
-	              'Server'
-	            ),
-	            _react2.default.createElement(
-	              bs.FormControl,
-	              { componentClass: 'select', placeholder: 'select', defaultValue: 0 },
-	              _react2.default.createElement(
-	                'option',
-	                { value: 0 },
-	                'EUW'
-	              ),
-	              _react2.default.createElement(
-	                'option',
-	                { value: 1 },
-	                'EUNE'
-	              ),
-	              _react2.default.createElement(
-	                'option',
-	                { value: 2 },
-	                'LAS'
-	              ),
-	              _react2.default.createElement(
-	                'option',
-	                { value: 3 },
-	                'LAN'
-	              ),
-	              _react2.default.createElement(
-	                'option',
-	                { value: 4 },
-	                'OCE'
-	              ),
-	              _react2.default.createElement(
-	                'option',
-	                { value: 5 },
-	                'BR'
-	              ),
-	              _react2.default.createElement(
-	                'option',
-	                { value: 6 },
-	                'NA'
-	              ),
-	              _react2.default.createElement(
-	                'option',
-	                { value: 7 },
-	                'KR'
-	              ),
-	              _react2.default.createElement(
-	                'option',
-	                { value: 8 },
-	                'TR'
-	              ),
-	              _react2.default.createElement(
-	                'option',
-	                { value: 9 },
-	                'RU'
-	              )
-	            ),
-	            _react2.default.createElement('br', null),
-	            _react2.default.createElement(
-	              bs.ControlLabel,
-	              null,
-	              'Misc'
-	            ),
-	            _react2.default.createElement(
-	              'table',
-	              { style: { width: '100%' } },
-	              _react2.default.createElement(
-	                'tbody',
+	              bs.Button,
+	              { bsStyle: 'primary', onClick: this.getLink, disabled: this.state.isLoading },
+	              this.state.isLoading ? _react2.default.createElement(
+	                'div',
 	                null,
-	                _react2.default.createElement(
-	                  'tr',
-	                  null,
-	                  _react2.default.createElement(
-	                    'td',
-	                    null,
-	                    _react2.default.createElement(
-	                      bs.Checkbox,
-	                      { inline: true, onChange: this.setChampion, checked: this.state.show_champion },
-	                      'Show champion'
-	                    )
-	                  ),
-	                  _react2.default.createElement(
-	                    'td',
-	                    null,
-	                    _react2.default.createElement(
-	                      bs.Checkbox,
-	                      { inline: true, onChange: this.setTier, checked: this.state.show_tier },
-	                      'Show tier'
-	                    )
-	                  )
-	                ),
-	                _react2.default.createElement(
-	                  'tr',
-	                  null,
-	                  _react2.default.createElement(
-	                    'td',
-	                    null,
-	                    _react2.default.createElement(
-	                      bs.Checkbox,
-	                      { inline: true, onChange: this.setWinrate, checked: this.state.show_winrate },
-	                      'Show winrate'
-	                    )
-	                  ),
-	                  _react2.default.createElement(
-	                    'td',
-	                    null,
-	                    _react2.default.createElement(
-	                      bs.Checkbox,
-	                      { inline: true, onChange: this.setWeb, checked: this.state.show_web },
-	                      'Show web'
-	                    )
-	                  )
-	                )
-	              )
+	                _react2.default.createElement('i', { className: 'fa fa-spinner fa-pulse fa-fw' }),
+	                ' Loading'
+	              ) : 'Get Link'
+	            ),
+	            _react2.default.createElement(
+	              bs.ControlLabel,
+	              null,
+	              this.state.resultmessage
 	            )
 	          )
 	        ),
+	        _react2.default.createElement('hr', null),
 	        _react2.default.createElement(
-	          bs.Tab,
-	          { eventKey: 2, title: 'Colors' },
+	          bs.Row,
+	          null,
 	          _react2.default.createElement(
-	            'div',
-	            { className: 'inside-tab' },
+	            bs.Col,
+	            { xs: 6 },
 	            _react2.default.createElement(
-	              'table',
-	              { style: { width: '100%' } },
+	              bs.Tabs,
+	              { activeKey: this.state.key, onSelect: this.handleSelect, id: 'builder.tabs', justified: true },
 	              _react2.default.createElement(
-	                'tbody',
-	                null,
+	                bs.Tab,
+	                { eventKey: 1, title: 'Info' },
 	                _react2.default.createElement(
-	                  'tr',
-	                  null,
+	                  'div',
+	                  { className: 'inside-tab' },
 	                  _react2.default.createElement(
-	                    'td',
+	                    bs.ControlLabel,
 	                    null,
-	                    'Background color'
+	                    'Summoner name'
+	                  ),
+	                  _react2.default.createElement(bs.FormControl, {
+	                    type: 'text',
+	                    placeholder: 'Lobo Bot',
+	                    onChange: this.setName
+	                  }),
+	                  _react2.default.createElement('br', null),
+	                  _react2.default.createElement(
+	                    bs.ControlLabel,
+	                    null,
+	                    'Server'
 	                  ),
 	                  _react2.default.createElement(
-	                    'td',
-	                    null,
-	                    _react2.default.createElement(_ColorPicker2.default, { returnColor: this.cp_bg, defaultColor: this.state.back_color })
-	                  )
-	                ),
-	                _react2.default.createElement(
-	                  'tr',
-	                  null,
+	                    bs.FormControl,
+	                    { componentClass: 'select', placeholder: 'select', defaultValue: this.state.server, onChange: this.setServer },
+	                    _react2.default.createElement(
+	                      'option',
+	                      { value: 0 },
+	                      'EUW'
+	                    ),
+	                    _react2.default.createElement(
+	                      'option',
+	                      { value: 1 },
+	                      'EUNE'
+	                    ),
+	                    _react2.default.createElement(
+	                      'option',
+	                      { value: 2 },
+	                      'LAS'
+	                    ),
+	                    _react2.default.createElement(
+	                      'option',
+	                      { value: 3 },
+	                      'LAN'
+	                    ),
+	                    _react2.default.createElement(
+	                      'option',
+	                      { value: 4 },
+	                      'OCE'
+	                    ),
+	                    _react2.default.createElement(
+	                      'option',
+	                      { value: 5 },
+	                      'BR'
+	                    ),
+	                    _react2.default.createElement(
+	                      'option',
+	                      { value: 6 },
+	                      'NA'
+	                    ),
+	                    _react2.default.createElement(
+	                      'option',
+	                      { value: 7 },
+	                      'KR'
+	                    ),
+	                    _react2.default.createElement(
+	                      'option',
+	                      { value: 8 },
+	                      'TR'
+	                    ),
+	                    _react2.default.createElement(
+	                      'option',
+	                      { value: 9 },
+	                      'RU'
+	                    )
+	                  ),
+	                  _react2.default.createElement('br', null),
 	                  _react2.default.createElement(
-	                    'td',
+	                    bs.ControlLabel,
 	                    null,
-	                    'Text color'
+	                    'Misc'
 	                  ),
 	                  _react2.default.createElement(
-	                    'td',
-	                    null,
-	                    _react2.default.createElement(_ColorPicker2.default, { returnColor: this.cp_text, defaultColor: this.state.text_color })
+	                    'table',
+	                    { style: { width: '100%' } },
+	                    _react2.default.createElement(
+	                      'tbody',
+	                      null,
+	                      _react2.default.createElement(
+	                        'tr',
+	                        null,
+	                        _react2.default.createElement(
+	                          'td',
+	                          null,
+	                          _react2.default.createElement(
+	                            bs.Checkbox,
+	                            { inline: true, onChange: this.setChampion, checked: this.state.show_champion },
+	                            'Show champion'
+	                          )
+	                        ),
+	                        _react2.default.createElement(
+	                          'td',
+	                          null,
+	                          _react2.default.createElement(
+	                            bs.Checkbox,
+	                            { inline: true, onChange: this.setTier, checked: this.state.show_tier },
+	                            'Show tier'
+	                          )
+	                        )
+	                      ),
+	                      _react2.default.createElement(
+	                        'tr',
+	                        null,
+	                        _react2.default.createElement(
+	                          'td',
+	                          null,
+	                          _react2.default.createElement(
+	                            bs.Checkbox,
+	                            { inline: true, onChange: this.setWinrate, checked: this.state.show_winrate },
+	                            'Show winrate'
+	                          )
+	                        ),
+	                        _react2.default.createElement(
+	                          'td',
+	                          null,
+	                          _react2.default.createElement(
+	                            bs.Checkbox,
+	                            { inline: true, onChange: this.setWeb, checked: this.state.show_web },
+	                            'Show web'
+	                          )
+	                        )
+	                      )
+	                    )
 	                  )
-	                ),
+	                )
+	              ),
+	              _react2.default.createElement(
+	                bs.Tab,
+	                { eventKey: 2, title: 'Colors' },
 	                _react2.default.createElement(
-	                  'tr',
-	                  null,
+	                  'div',
+	                  { className: 'inside-tab' },
 	                  _react2.default.createElement(
-	                    'td',
-	                    null,
-	                    'Background border color'
-	                  ),
-	                  _react2.default.createElement(
-	                    'td',
-	                    null,
-	                    _react2.default.createElement(_ColorPicker2.default, { returnColor: this.cp_bbc, defaultColor: this.state.back_border_color })
+	                    'table',
+	                    { style: { width: '100%' } },
+	                    _react2.default.createElement(
+	                      'tbody',
+	                      null,
+	                      _react2.default.createElement(
+	                        'tr',
+	                        null,
+	                        _react2.default.createElement(
+	                          'td',
+	                          null,
+	                          'Background color'
+	                        ),
+	                        _react2.default.createElement(
+	                          'td',
+	                          null,
+	                          _react2.default.createElement(_ColorPicker2.default, { returnColor: this.cp_bg, defaultColor: this.state.back_color })
+	                        )
+	                      ),
+	                      _react2.default.createElement(
+	                        'tr',
+	                        null,
+	                        _react2.default.createElement(
+	                          'td',
+	                          null,
+	                          'Text color'
+	                        ),
+	                        _react2.default.createElement(
+	                          'td',
+	                          null,
+	                          _react2.default.createElement(_ColorPicker2.default, { returnColor: this.cp_text, defaultColor: this.state.text_color })
+	                        )
+	                      ),
+	                      _react2.default.createElement(
+	                        'tr',
+	                        null,
+	                        _react2.default.createElement(
+	                          'td',
+	                          null,
+	                          'Background border color'
+	                        ),
+	                        _react2.default.createElement(
+	                          'td',
+	                          null,
+	                          _react2.default.createElement(_ColorPicker2.default, { returnColor: this.cp_bbc, defaultColor: this.state.back_border_color })
+	                        )
+	                      ),
+	                      _react2.default.createElement(
+	                        'tr',
+	                        null,
+	                        _react2.default.createElement(
+	                          'td',
+	                          null,
+	                          'Champ border color'
+	                        ),
+	                        _react2.default.createElement(
+	                          'td',
+	                          null,
+	                          _react2.default.createElement(_ColorPicker2.default, { returnColor: this.cp_cbc, defaultColor: this.state.champ_border_color })
+	                        )
+	                      ),
+	                      _react2.default.createElement(
+	                        'tr',
+	                        null,
+	                        _react2.default.createElement(
+	                          'td',
+	                          null,
+	                          'Background shadow color'
+	                        ),
+	                        _react2.default.createElement(
+	                          'td',
+	                          null,
+	                          _react2.default.createElement(_ColorPicker2.default, { returnColor: this.cp_bsc, defaultColor: this.state.back_shadow_color })
+	                        )
+	                      ),
+	                      _react2.default.createElement(
+	                        'tr',
+	                        null,
+	                        _react2.default.createElement(
+	                          'td',
+	                          null,
+	                          'Champ shadow color'
+	                        ),
+	                        _react2.default.createElement(
+	                          'td',
+	                          null,
+	                          _react2.default.createElement(_ColorPicker2.default, { returnColor: this.cp_csc, defaultColor: this.state.champ_shadow_color })
+	                        )
+	                      ),
+	                      _react2.default.createElement(
+	                        'tr',
+	                        null,
+	                        _react2.default.createElement(
+	                          'td',
+	                          null,
+	                          'Text shadow color'
+	                        ),
+	                        _react2.default.createElement(
+	                          'td',
+	                          null,
+	                          _react2.default.createElement(_ColorPicker2.default, { returnColor: this.cp_tsc, defaultColor: this.state.text_shadow_color })
+	                        )
+	                      )
+	                    )
 	                  )
-	                ),
+	                )
+	              ),
+	              _react2.default.createElement(
+	                bs.Tab,
+	                { eventKey: 3, title: 'Borders' },
 	                _react2.default.createElement(
-	                  'tr',
-	                  null,
+	                  'div',
+	                  { className: 'inside-tab' },
 	                  _react2.default.createElement(
-	                    'td',
+	                    bs.ControlLabel,
 	                    null,
-	                    'Champ border color'
+	                    'Background border'
 	                  ),
+	                  _react2.default.createElement(_reactHtml5Slider2.default, {
+	                    value: this.state.back_border_width,
+	                    handleChange: this.sl_back_border_width,
+	                    step: 1,
+	                    max: 5,
+	                    min: 0
+	                  }),
 	                  _react2.default.createElement(
-	                    'td',
+	                    bs.ControlLabel,
 	                    null,
-	                    _react2.default.createElement(_ColorPicker2.default, { returnColor: this.cp_cbc, defaultColor: this.state.champ_border_color })
-	                  )
-	                ),
-	                _react2.default.createElement(
-	                  'tr',
-	                  null,
-	                  _react2.default.createElement(
-	                    'td',
-	                    null,
-	                    'Background shadow color'
+	                    'Background border radius'
 	                  ),
+	                  _react2.default.createElement(_reactHtml5Slider2.default, {
+	                    value: this.state.back_border_radius,
+	                    handleChange: this.sl_back_border_radius,
+	                    step: 1,
+	                    max: 30,
+	                    min: 0
+	                  }),
 	                  _react2.default.createElement(
-	                    'td',
+	                    bs.ControlLabel,
 	                    null,
-	                    _react2.default.createElement(_ColorPicker2.default, { returnColor: this.cp_bsc, defaultColor: this.state.back_shadow_color })
-	                  )
-	                ),
-	                _react2.default.createElement(
-	                  'tr',
-	                  null,
-	                  _react2.default.createElement(
-	                    'td',
-	                    null,
-	                    'Champ shadow color'
+	                    'Champion border'
 	                  ),
+	                  _react2.default.createElement(_reactHtml5Slider2.default, {
+	                    value: this.state.champ_border_width,
+	                    handleChange: this.sl_champ_border_width,
+	                    step: 1,
+	                    max: 5,
+	                    min: 0
+	                  }),
 	                  _react2.default.createElement(
-	                    'td',
+	                    bs.ControlLabel,
 	                    null,
-	                    _react2.default.createElement(_ColorPicker2.default, { returnColor: this.cp_csc, defaultColor: this.state.champ_shadow_color })
-	                  )
-	                ),
-	                _react2.default.createElement(
-	                  'tr',
-	                  null,
-	                  _react2.default.createElement(
-	                    'td',
-	                    null,
-	                    'Text shadow color'
+	                    'Champion border radius'
 	                  ),
-	                  _react2.default.createElement(
-	                    'td',
-	                    null,
-	                    _react2.default.createElement(_ColorPicker2.default, { returnColor: this.cp_tsc, defaultColor: this.state.text_shadow_color })
-	                  )
+	                  _react2.default.createElement(_reactHtml5Slider2.default, {
+	                    value: this.state.champ_border_radius,
+	                    handleChange: this.sl_champ_border_radius,
+	                    step: 1,
+	                    max: 50,
+	                    min: 0
+	                  })
 	                )
 	              )
 	            )
-	          )
-	        ),
-	        _react2.default.createElement(
-	          bs.Tab,
-	          { eventKey: 3, title: 'Borders' },
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'inside-tab' },
-	            _react2.default.createElement(
-	              bs.ControlLabel,
-	              null,
-	              'Background border'
-	            ),
-	            _react2.default.createElement(_reactHtml5Slider2.default, {
-	              value: this.state.back_border_width,
-	              handleChange: this.sl_back_border_width,
-	              step: 1,
-	              max: 5,
-	              min: 0
-	            }),
-	            _react2.default.createElement(
-	              bs.ControlLabel,
-	              null,
-	              'Background border radius'
-	            ),
-	            _react2.default.createElement(_reactHtml5Slider2.default, {
-	              value: this.state.back_border_radius,
-	              handleChange: this.sl_back_border_radius,
-	              step: 1,
-	              max: 30,
-	              min: 0
-	            }),
-	            _react2.default.createElement(
-	              bs.ControlLabel,
-	              null,
-	              'Champion border'
-	            ),
-	            _react2.default.createElement(_reactHtml5Slider2.default, {
-	              value: this.state.champ_border_width,
-	              handleChange: this.sl_champ_border_width,
-	              step: 1,
-	              max: 5,
-	              min: 0
-	            }),
-	            _react2.default.createElement(
-	              bs.ControlLabel,
-	              null,
-	              'Champion border radius'
-	            ),
-	            _react2.default.createElement(_reactHtml5Slider2.default, {
-	              value: this.state.champ_border_radius,
-	              handleChange: this.sl_champ_border_radius,
-	              step: 1,
-	              max: 50,
-	              min: 0
-	            })
 	          )
 	        )
 	      );
