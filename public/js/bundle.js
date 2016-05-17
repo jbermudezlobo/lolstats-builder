@@ -21842,16 +21842,27 @@
 
 	var _warning2 = _interopRequireDefault(_warning);
 
+	var warned = {};
+
 	function deprecated(propType, explanation) {
 	  return function validate(props, propName, componentName) {
 	    if (props[propName] != null) {
-	      _warning2['default'](false, '"' + propName + '" property of "' + componentName + '" has been deprecated.\n' + explanation);
+	      var message = '"' + propName + '" property of "' + componentName + '" has been deprecated.\n' + explanation;
+	      if (!warned[message]) {
+	        _warning2['default'](false, message);
+	        warned[message] = true;
+	      }
 	    }
 
 	    return propType(props, propName, componentName);
 	  };
 	}
 
+	function _resetWarned() {
+	  warned = {};
+	}
+
+	deprecated._resetWarned = _resetWarned;
 	module.exports = exports['default'];
 
 /***/ },
@@ -55759,6 +55770,8 @@
 	  value: true
 	});
 
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	var _react = __webpack_require__(1);
@@ -55797,7 +55810,7 @@
 
 	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(TabComponent).call(this, props));
 
-	    _this.state = {
+	    _this.state = _extends({
 	      isLoading: false,
 	      resultmessage: '',
 	      key: 1,
@@ -55823,7 +55836,7 @@
 	      back_shadow: _this.props.data ? _this.props.data.back_shadow : { h: 0, v: 0, b: 10 },
 	      champ_shadow: _this.props.data ? _this.props.data.champ_shadow : { h: 0, v: 0, b: 10 },
 	      text_shadow: _this.props.data ? _this.props.data.text_shadow : { h: 0, v: 0, b: 10 }
-	    };
+	    }, _this.props.data);
 	    return _this;
 	  }
 

@@ -32,7 +32,8 @@ class TabComponent extends React.Component {
       champ_border_radius: this.props.data ? this.props.data.champ_border_radius : 0,
       back_shadow: this.props.data ? this.props.data.back_shadow : { h: 0, v: 0, b: 10 },
       champ_shadow: this.props.data ? this.props.data.champ_shadow : { h: 0, v: 0, b: 10 },
-      text_shadow: this.props.data ? this.props.data.text_shadow : { h: 0, v: 0, b: 10 }
+      text_shadow: this.props.data ? this.props.data.text_shadow : { h: 0, v: 0, b: 10 },
+      ...this.props.data
     };
   }
 
