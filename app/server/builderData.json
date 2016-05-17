@@ -2,7 +2,7 @@
   "error": false,
   "token": "AA123BB456CC",
   "type": 0,
-  "load_animation": "flipInY",
+  "load_animation": "none",
   "show_champion": false,
   "show_winrate": false,
   "show_tier": false,

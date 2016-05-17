@@ -20229,7 +20229,7 @@
 	        _react2.default.createElement(
 	          bs.Panel,
 	          { header: title },
-	          _react2.default.createElement(_TabComponent2.default, { data: false })
+	          _react2.default.createElement(_TabComponent2.default, { builderData: this.props.builderData })
 	        )
 	      );
 	    }
@@ -55817,26 +55817,26 @@
 	      summoner_name: '',
 	      server: 0,
 	      load_animation: 'flipInY',
-	      show_champion: _this.props.data ? _this.props.data.show_champion : true,
-	      show_winrate: _this.props.data ? _this.props.data.show_winrate : true,
-	      show_tier: _this.props.data ? _this.props.data.show_tier : true,
-	      show_web: _this.props.data ? _this.props.data.show_web : true,
+	      show_champion: true,
+	      show_winrate: true,
+	      show_tier: true,
+	      show_web: true,
 	      align: 'center',
-	      back_color: _this.props.data ? _this.props.data.back_color : { r: 255, g: 0, b: 0, a: 1 },
-	      text_color: _this.props.data ? _this.props.data.text_color : { r: 255, g: 0, b: 0, a: 1 },
-	      back_border_color: _this.props.data ? _this.props.data.back_border_color : { r: 255, g: 0, b: 0, a: 1 },
-	      champ_border_color: _this.props.data ? _this.props.data.champ_border_color : { r: 255, g: 0, b: 0, a: 1 },
-	      back_shadow_color: _this.props.data ? _this.props.data.back_shadow_color : { r: 255, g: 0, b: 0, a: 1 },
-	      champ_shadow_color: _this.props.data ? _this.props.data.champ_shadow_color : { r: 255, g: 0, b: 0, a: 1 },
-	      text_shadow_color: _this.props.data ? _this.props.data.text_shadow_color : { r: 255, g: 0, b: 0, a: 1 },
-	      back_border_width: _this.props.data ? _this.props.data.back_border_width : 0,
-	      back_border_radius: _this.props.data ? _this.props.data.back_border_radius : 0,
-	      champ_border_width: _this.props.data ? _this.props.data.champ_border_width : 0,
-	      champ_border_radius: _this.props.data ? _this.props.data.champ_border_radius : 0,
-	      back_shadow: _this.props.data ? _this.props.data.back_shadow : { h: 0, v: 0, b: 10 },
-	      champ_shadow: _this.props.data ? _this.props.data.champ_shadow : { h: 0, v: 0, b: 10 },
-	      text_shadow: _this.props.data ? _this.props.data.text_shadow : { h: 0, v: 0, b: 10 }
-	    }, _this.props.data);
+	      back_color: { r: 255, g: 0, b: 0, a: 1 },
+	      text_color: { r: 255, g: 0, b: 0, a: 1 },
+	      back_border_color: { r: 255, g: 0, b: 0, a: 1 },
+	      champ_border_color: { r: 255, g: 0, b: 0, a: 1 },
+	      back_shadow_color: { r: 255, g: 0, b: 0, a: 1 },
+	      champ_shadow_color: { r: 255, g: 0, b: 0, a: 1 },
+	      text_shadow_color: { r: 255, g: 0, b: 0, a: 1 },
+	      back_border_width: 0,
+	      back_border_radius: 0,
+	      champ_border_width: 0,
+	      champ_border_radius: 0,
+	      back_shadow: { h: 0, v: 0, b: 10 },
+	      champ_shadow: { h: 0, v: 0, b: 10 },
+	      text_shadow: { h: 0, v: 0, b: 10 }
+	    }, _this.props.builderData);
 	    return _this;
 	  }
 
@@ -56091,6 +56091,183 @@
 	                          )
 	                        )
 	                      )
+	                    )
+	                  ),
+	                  _react2.default.createElement('br', null),
+	                  _react2.default.createElement(
+	                    bs.ControlLabel,
+	                    null,
+	                    'Load animation'
+	                  ),
+	                  _react2.default.createElement(
+	                    bs.FormControl,
+	                    { componentClass: 'select', placeholder: 'select', defaultValue: this.state.load_animation, onChange: function onChange(event) {
+	                        return _this3.setState({ load_animation: event.currentTarget.value });
+	                      } },
+	                    _react2.default.createElement(
+	                      'option',
+	                      { value: 'none' },
+	                      'none'
+	                    ),
+	                    _react2.default.createElement(
+	                      'option',
+	                      { value: 'bounceIn' },
+	                      'bounceIn'
+	                    ),
+	                    _react2.default.createElement(
+	                      'option',
+	                      { value: 'bounceInDown' },
+	                      'bounceInDown'
+	                    ),
+	                    _react2.default.createElement(
+	                      'option',
+	                      { value: 'bounceInLeft' },
+	                      'bounceInLeft'
+	                    ),
+	                    _react2.default.createElement(
+	                      'option',
+	                      { value: 'bounceInRight' },
+	                      'bounceInRight'
+	                    ),
+	                    _react2.default.createElement(
+	                      'option',
+	                      { value: 'bounceInUp' },
+	                      'bounceInUp'
+	                    ),
+	                    _react2.default.createElement(
+	                      'option',
+	                      { value: 'fadeIn' },
+	                      'fadeIn'
+	                    ),
+	                    _react2.default.createElement(
+	                      'option',
+	                      { value: 'fadeInDown' },
+	                      'fadeInDown'
+	                    ),
+	                    _react2.default.createElement(
+	                      'option',
+	                      { value: 'fadeInDownBig' },
+	                      'fadeInDownBig'
+	                    ),
+	                    _react2.default.createElement(
+	                      'option',
+	                      { value: 'fadeInLeft' },
+	                      'fadeInLeft'
+	                    ),
+	                    _react2.default.createElement(
+	                      'option',
+	                      { value: 'fadeInLeftBig' },
+	                      'fadeInLeftBig'
+	                    ),
+	                    _react2.default.createElement(
+	                      'option',
+	                      { value: 'fadeInRight' },
+	                      'fadeInRight'
+	                    ),
+	                    _react2.default.createElement(
+	                      'option',
+	                      { value: 'fadeInRightBig' },
+	                      'fadeInRightBig'
+	                    ),
+	                    _react2.default.createElement(
+	                      'option',
+	                      { value: 'fadeInUp' },
+	                      'fadeInUp'
+	                    ),
+	                    _react2.default.createElement(
+	                      'option',
+	                      { value: 'fadeInUpBig' },
+	                      'fadeInUpBig'
+	                    ),
+	                    _react2.default.createElement(
+	                      'option',
+	                      { value: 'flipInX' },
+	                      'flipInX'
+	                    ),
+	                    _react2.default.createElement(
+	                      'option',
+	                      { value: 'flipInY' },
+	                      'flipInY'
+	                    ),
+	                    _react2.default.createElement(
+	                      'option',
+	                      { value: 'lightSpeedIn' },
+	                      'lightSpeedIn'
+	                    ),
+	                    _react2.default.createElement(
+	                      'option',
+	                      { value: 'rotateIn' },
+	                      'rotateIn'
+	                    ),
+	                    _react2.default.createElement(
+	                      'option',
+	                      { value: 'rotateInDownLeft' },
+	                      'rotateInDownLeft'
+	                    ),
+	                    _react2.default.createElement(
+	                      'option',
+	                      { value: 'rotateInDownRight' },
+	                      'rotateInDownRight'
+	                    ),
+	                    _react2.default.createElement(
+	                      'option',
+	                      { value: 'rotateInUpLeft' },
+	                      'rotateInUpLeft'
+	                    ),
+	                    _react2.default.createElement(
+	                      'option',
+	                      { value: 'rotateInUpRight' },
+	                      'rotateInUpRight'
+	                    ),
+	                    _react2.default.createElement(
+	                      'option',
+	                      { value: 'slideInUp' },
+	                      'slideInUp'
+	                    ),
+	                    _react2.default.createElement(
+	                      'option',
+	                      { value: 'slideInDown' },
+	                      'slideInDown'
+	                    ),
+	                    _react2.default.createElement(
+	                      'option',
+	                      { value: 'slideInLeft' },
+	                      'slideInLeft'
+	                    ),
+	                    _react2.default.createElement(
+	                      'option',
+	                      { value: 'slideInRight' },
+	                      'slideInRight'
+	                    ),
+	                    _react2.default.createElement(
+	                      'option',
+	                      { value: 'zoomIn' },
+	                      'zoomIn'
+	                    ),
+	                    _react2.default.createElement(
+	                      'option',
+	                      { value: 'zoomInDown' },
+	                      'zoomInDown'
+	                    ),
+	                    _react2.default.createElement(
+	                      'option',
+	                      { value: 'zoomInLeft' },
+	                      'zoomInLeft'
+	                    ),
+	                    _react2.default.createElement(
+	                      'option',
+	                      { value: 'zoomInRight' },
+	                      'zoomInRight'
+	                    ),
+	                    _react2.default.createElement(
+	                      'option',
+	                      { value: 'zoomInUp' },
+	                      'zoomInUp'
+	                    ),
+	                    _react2.default.createElement(
+	                      'option',
+	                      { value: 'rollIn' },
+	                      'rollIn'
 	                    )
 	                  )
 	                )
@@ -56455,8 +56632,9 @@
 	  return TabComponent;
 	}(_react2.default.Component);
 
-	TabComponent.propTypes = {};
-
+	TabComponent.propTypes = {
+	  builderData: _react2.default.PropTypes.object
+	};
 	exports.default = TabComponent;
 
 /***/ },

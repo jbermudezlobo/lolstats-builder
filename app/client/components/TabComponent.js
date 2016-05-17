@@ -4,9 +4,12 @@ import ColorPicker from './ColorPicker';
 import ReactNativeSlider from "react-html5-slider";
 
 class TabComponent extends React.Component {
+  static propTypes = {
+    builderData: React.PropTypes.object
+  }
+
   constructor(props) {
     super(props);
-    // console.log(this.props);
     this.state = {
       isLoading: false,
       resultmessage: '',
@@ -14,26 +17,26 @@ class TabComponent extends React.Component {
       summoner_name: '',
       server: 0,
       load_animation: 'flipInY',
-      show_champion: this.props.data ? this.props.data.show_champion : true,
-      show_winrate: this.props.data ? this.props.data.show_winrate : true,
-      show_tier: this.props.data ? this.props.data.show_tier : true,
-      show_web: this.props.data ? this.props.data.show_web : true,
+      show_champion: true,
+      show_winrate: true,
+      show_tier: true,
+      show_web: true,
       align: 'center',
-      back_color: this.props.data ? this.props.data.back_color : { r: 255, g: 0, b: 0, a: 1},
-      text_color: this.props.data ? this.props.data.text_color : { r: 255, g: 0, b: 0, a: 1},
-      back_border_color: this.props.data ? this.props.data.back_border_color : { r: 255, g: 0, b: 0, a: 1},
-      champ_border_color: this.props.data ? this.props.data.champ_border_color : { r: 255, g: 0, b: 0, a: 1},
-      back_shadow_color: this.props.data ? this.props.data.back_shadow_color : { r: 255, g: 0, b: 0, a: 1},
-      champ_shadow_color: this.props.data ? this.props.data.champ_shadow_color : { r: 255, g: 0, b: 0, a: 1},
-      text_shadow_color: this.props.data ? this.props.data.text_shadow_color : { r: 255, g: 0, b: 0, a: 1},
-      back_border_width: this.props.data ? this.props.data.back_border_width : 0,
-      back_border_radius: this.props.data ? this.props.data.back_border_radius : 0,
-      champ_border_width: this.props.data ? this.props.data.champ_border_width : 0,
-      champ_border_radius: this.props.data ? this.props.data.champ_border_radius : 0,
-      back_shadow: this.props.data ? this.props.data.back_shadow : { h: 0, v: 0, b: 10 },
-      champ_shadow: this.props.data ? this.props.data.champ_shadow : { h: 0, v: 0, b: 10 },
-      text_shadow: this.props.data ? this.props.data.text_shadow : { h: 0, v: 0, b: 10 },
-      ...this.props.data
+      back_color: { r: 255, g: 0, b: 0, a: 1},
+      text_color: { r: 255, g: 0, b: 0, a: 1},
+      back_border_color: { r: 255, g: 0, b: 0, a: 1},
+      champ_border_color: { r: 255, g: 0, b: 0, a: 1},
+      back_shadow_color: { r: 255, g: 0, b: 0, a: 1},
+      champ_shadow_color: { r: 255, g: 0, b: 0, a: 1},
+      text_shadow_color: { r: 255, g: 0, b: 0, a: 1},
+      back_border_width: 0,
+      back_border_radius: 0,
+      champ_border_width: 0,
+      champ_border_radius: 0,
+      back_shadow: { h: 0, v: 0, b: 10 },
+      champ_shadow: { h: 0, v: 0, b: 10 },
+      text_shadow: { h: 0, v: 0, b: 10 },
+      ...this.props.builderData
     };
   }
 
@@ -166,6 +169,43 @@ class TabComponent extends React.Component {
                       </tr>
                     </tbody>
                   </table>
+                  <br/>
+                  <bs.ControlLabel>Load animation</bs.ControlLabel>
+                  <bs.FormControl componentClass='select' placeholder='select' defaultValue={this.state.load_animation} onChange={(event) => this.setState({ load_animation: event.currentTarget.value })}>
+                    <option value='none'>none</option>
+                    <option value='bounceIn'>bounceIn</option>
+                    <option value='bounceInDown'>bounceInDown</option>
+                    <option value='bounceInLeft'>bounceInLeft</option>
+                    <option value='bounceInRight'>bounceInRight</option>
+                    <option value='bounceInUp'>bounceInUp</option>
+                    <option value='fadeIn'>fadeIn</option>
+                    <option value='fadeInDown'>fadeInDown</option>
+                    <option value='fadeInDownBig'>fadeInDownBig</option>
+                    <option value='fadeInLeft'>fadeInLeft</option>
+                    <option value='fadeInLeftBig'>fadeInLeftBig</option>
+                    <option value='fadeInRight'>fadeInRight</option>
+                    <option value='fadeInRightBig'>fadeInRightBig</option>
+                    <option value='fadeInUp'>fadeInUp</option>
+                    <option value='fadeInUpBig'>fadeInUpBig</option>
+                    <option value='flipInX'>flipInX</option>
+                    <option value='flipInY'>flipInY</option>
+                    <option value='lightSpeedIn'>lightSpeedIn</option>
+                    <option value='rotateIn'>rotateIn</option>
+                    <option value='rotateInDownLeft'>rotateInDownLeft</option>
+                    <option value='rotateInDownRight'>rotateInDownRight</option>
+                    <option value='rotateInUpLeft'>rotateInUpLeft</option>
+                    <option value='rotateInUpRight'>rotateInUpRight</option>
+                    <option value='slideInUp'>slideInUp</option>
+                    <option value='slideInDown'>slideInDown</option>
+                    <option value='slideInLeft'>slideInLeft</option>
+                    <option value='slideInRight'>slideInRight</option>
+                    <option value='zoomIn'>zoomIn</option>
+                    <option value='zoomInDown'>zoomInDown</option>
+                    <option value='zoomInLeft'>zoomInLeft</option>
+                    <option value='zoomInRight'>zoomInRight</option>
+                    <option value='zoomInUp'>zoomInUp</option>
+                    <option value='rollIn'>rollIn</option>
+                  </bs.FormControl>
                 </div>
               </bs.Tab>
 
@@ -389,8 +429,5 @@ class TabComponent extends React.Component {
     );
   }
 }
-
-TabComponent.propTypes = {
-};
 
 export default TabComponent;
