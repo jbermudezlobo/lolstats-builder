@@ -34,7 +34,7 @@ class TabComponent extends React.Component {
       champ_shadow: this.props.data ? this.props.data.champ_shadow : { h: 0, v: 0, b: 10 },
       text_shadow: this.props.data ? this.props.data.text_shadow : { h: 0, v: 0, b: 10 }
     };
-    [
+    /*[
       'getLink',
       'setName',
       'setChampion',
@@ -55,7 +55,7 @@ class TabComponent extends React.Component {
       'sl_champ_border_width',
       'sl_champ_border_radius',
       'setServer'
-    ].forEach(m => { this[m] = this[m].bind(this); return null; });
+    ].forEach(m => { this[m] = this[m].bind(this); return null; });*/
   }
 
   generateJSON() {
@@ -100,88 +100,12 @@ class TabComponent extends React.Component {
     });
   }
 
-  setName(event) {
-    this.setState({ summoner_name: event.currentTarget.value });
-  }
-
-  setServer(event) {
-    this.setState({ server: event.currentTarget.value });
-  }
-
-  setChampion(event) {
-    this.setState({ show_champion: event.currentTarget.checked });
-  }
-
-  setWinrate(event) {
-    this.setState({ show_winrate: event.currentTarget.checked });
-  }
-
-  setTier(event) {
-    this.setState({ show_tier: event.currentTarget.checked });
-  }
-
-  setWeb(event) {
-    this.setState({ show_web: event.currentTarget.checked });
-  }
-
-  handleSelect(key) {
-    this.setState({ key });
-  }
-
   rgbaToString(color) {
     return `rgba(${color.r}, ${color.g}, ${color.b}, ${color.a})`;
   }
 
-  stringToRGBA(color) {
-
-  }
-
-  cp_bg(color) {
-    this.setState({ text_color: color });
-  }
-
-  cp_text(color) {
-    this.setState({ back_border_color: color });
-  }
-
-  cp_bbc(color) {
-    this.setState({ champ_border_color: color });
-  }
-
-  cp_cbc(color) {
-    this.setState({ back_shadow_color: color });
-  }
-
-  cp_bsc(color) {
-    this.setState({ back_shadow_color: color });
-  }
-
-  cp_csc(color) {
-    this.setState({ champ_shadow_color: color });
-  }
-
-  cp_tsc(color) {
-    this.setState({ text_shadow_color: color });
-  }
-
-  sl_back_border_width(event) {
-    this.setState({ back_border_width: parseInt(event.currentTarget.value) });
-  }
-
-  sl_back_border_radius(event) {
-    this.setState({ back_border_radius: parseInt(event.currentTarget.value) });
-  }
-
-  sl_champ_border_width(event) {
-    this.setState({ champ_border_width: parseInt(event.currentTarget.value) });
-  }
-
-  sl_champ_border_radius(event) {
-    this.setState({ champ_border_radius: parseInt(event.currentTarget.value) });
-  }
-
   render() {
-    // console.log(JSON.stringify(this.state));
+    console.log(JSON.stringify(this.state));
     return (
       <div>
         <bs.Row>
@@ -196,19 +120,19 @@ class TabComponent extends React.Component {
         <hr/>
         <bs.Row>
           <bs.Col xs={6}>
-            <bs.Tabs activeKey={this.state.key} onSelect={this.handleSelect} id='builder.tabs' justified>
+            <bs.Tabs activeKey={this.state.key} onSelect={(key) => this.setState({ key })} id='builder.tabs' justified>
               <bs.Tab eventKey={1} title='Info'>
                 <div className='inside-tab'>
                   <bs.ControlLabel>Summoner name</bs.ControlLabel>
                   <bs.FormControl
                     type='text'
                     placeholder='Lobo Bot'
-                    onChange={this.setName}
+                    onChange={(event) => this.setState({ summoner_name: event.currentTarget.value })}
                   />
                   <br/>
 
                   <bs.ControlLabel>Server</bs.ControlLabel>
-                  <bs.FormControl componentClass='select' placeholder='select' defaultValue={this.state.server} onChange={this.setServer}>
+                  <bs.FormControl componentClass='select' placeholder='select' defaultValue={this.state.server} onChange={(event) => this.setState({ server: event.currentTarget.value })}>
                     <option value={0}>EUW</option>
                     <option value={1}>EUNE</option>
                     <option value={2}>LAS</option>
@@ -226,12 +150,12 @@ class TabComponent extends React.Component {
                   <table style={{ width: '100%' }}>
                     <tbody>
                       <tr>
-                        <td><bs.Checkbox inline onChange={this.setChampion} checked={this.state.show_champion}>Show champion</bs.Checkbox></td>
-                        <td><bs.Checkbox inline onChange={this.setTier} checked={this.state.show_tier}>Show tier</bs.Checkbox></td>
+                        <td><bs.Checkbox inline onChange={(event) => this.setState({ show_champion: event.currentTarget.checked })} checked={this.state.show_champion}>Show champion</bs.Checkbox></td>
+                        <td><bs.Checkbox inline onChange={(event) => this.setState({ show_tier: event.currentTarget.checked })} checked={this.state.show_tier}>Show tier</bs.Checkbox></td>
                       </tr>
                       <tr>
-                        <td><bs.Checkbox inline onChange={this.setWinrate} checked={this.state.show_winrate}>Show winrate</bs.Checkbox></td>
-                        <td><bs.Checkbox inline onChange={this.setWeb} checked={this.state.show_web}>Show web</bs.Checkbox></td>
+                        <td><bs.Checkbox inline onChange={(event) => this.setState({ show_winrate: event.currentTarget.checked })} checked={this.state.show_winrate}>Show winrate</bs.Checkbox></td>
+                        <td><bs.Checkbox inline onChange={(event) => this.setState({ show_web: event.currentTarget.checked })} checked={this.state.show_web}>Show web</bs.Checkbox></td>
                       </tr>
                     </tbody>
                   </table>
@@ -247,7 +171,7 @@ class TabComponent extends React.Component {
                       {`Width: ${this.state.back_border_width}px`}
                       <ReactNativeSlider
                         value={this.state.back_border_width}
-                        handleChange={this.sl_back_border_width}
+                        handleChange={(event) => this.setState({ back_border_width: parseInt(event.currentTarget.value) })}
                         step={1}
                         max={5}
                         min={0}
@@ -257,7 +181,7 @@ class TabComponent extends React.Component {
                       {`Radius: ${this.state.back_border_radius}px`}
                       <ReactNativeSlider
                         value={this.state.back_border_radius}
-                        handleChange={this.sl_back_border_radius}
+                        handleChange={(event) => this.setState({ back_border_radius: parseInt(event.currentTarget.value) })}
                         step={1}
                         max={30}
                         min={0}
@@ -265,11 +189,11 @@ class TabComponent extends React.Component {
                     </bs.Col>
                     <bs.Col xs={3}>
                       Color
-                      <ColorPicker returnColor={this.cp_bg} defaultColor={this.state.back_color} />
+                      <ColorPicker returnColor={(color) => this.setState({ back_color: color})} defaultColor={this.state.back_color} />
                     </bs.Col>
                     <bs.Col xs={3}>
                       Border
-                      <ColorPicker returnColor={this.cp_bbc} defaultColor={this.state.back_border_color} />
+                      <ColorPicker returnColor={(color) => this.setState({ back_border_color: color })} defaultColor={this.state.back_border_color} />
                     </bs.Col>
                   </bs.Row>
 
@@ -279,7 +203,7 @@ class TabComponent extends React.Component {
                       {`Width: ${this.state.champ_border_width}px`}
                       <ReactNativeSlider
                         value={this.state.champ_border_width}
-                        handleChange={this.sl_champ_border_width}
+                        handleChange={(event) => this.setState({ champ_border_width: parseInt(event.currentTarget.value) })}
                         step={1}
                         max={5}
                         min={0}
@@ -289,15 +213,15 @@ class TabComponent extends React.Component {
                       {`Radius: ${this.state.champ_border_radius}px`}
                       <ReactNativeSlider
                         value={this.state.champ_border_radius}
-                        handleChange={this.sl_champ_border_radius}
+                        handleChange={(event) => this.setState({ champ_border_radius: parseInt(event.currentTarget.value) })}
                         step={1}
                         max={30}
                         min={0}
                       />
                     </bs.Col>
                     <bs.Col xs={6}>
-                      Color
-                      <ColorPicker returnColor={this.cp_cbc} defaultColor={this.state.champ_border_color} />
+                      Border
+                      <ColorPicker returnColor={(color) => this.setState({ champ_border_color: color})} defaultColor={this.state.champ_border_color} />
                     </bs.Col>
                   </bs.Row>
 
@@ -305,7 +229,7 @@ class TabComponent extends React.Component {
                   <bs.Row style={{ fontSize: '0.8em', textAlign: 'center' }}>
                     <bs.Col xs={3}>
                       Color
-                      <ColorPicker returnColor={this.cp_text} defaultColor={this.state.text_color} />
+                      <ColorPicker returnColor={(color) => this.setState({ text_color: color})} defaultColor={this.state.text_color} />
                     </bs.Col>
                   </bs.Row>
                   <br/>
@@ -317,7 +241,7 @@ class TabComponent extends React.Component {
                       {`H: ${this.state.back_shadow.h}px`}
                       <ReactNativeSlider
                         value={this.state.back_shadow.h}
-                        handleChange={this.sl_back_shadow_h}
+                        handleChange={(event) => this.setState(Object.assign(this.state, {back_shadow: Object.assign(this.state.back_shadow, { h: parseInt(event.currentTarget.value) }) }))}
                         step={1}
                         max={10}
                         min={-10}
@@ -327,7 +251,7 @@ class TabComponent extends React.Component {
                       {`V: ${this.state.back_shadow.v}px`}
                       <ReactNativeSlider
                         value={this.state.back_shadow.v}
-                        handleChange={this.sl_back_shadow_v}
+                        handleChange={(event) => this.setState(Object.assign(this.state, {back_shadow: Object.assign(this.state.back_shadow, { v: parseInt(event.currentTarget.value) }) }))}
                         step={1}
                         max={10}
                         min={-10}
@@ -337,7 +261,7 @@ class TabComponent extends React.Component {
                       {`B: ${this.state.back_shadow.b}px`}
                       <ReactNativeSlider
                         value={this.state.back_shadow.b}
-                        handleChange={this.sl_back_shadow_b}
+                        handleChange={(event) => this.setState(Object.assign(this.state, {back_shadow: Object.assign(this.state.back_shadow, { b: parseInt(event.currentTarget.value) }) }))}
                         step={1}
                         max={10}
                         min={0}
@@ -345,7 +269,7 @@ class TabComponent extends React.Component {
                     </bs.Col>
                     <bs.Col xs={3}>
                       Color
-                      <ColorPicker returnColor={this.cp_bsc} defaultColor={this.state.back_shadow_color} />
+                      <ColorPicker returnColor={(color) => this.setState({ back_shadow_color: color})} defaultColor={this.state.back_shadow_color} />
                     </bs.Col>
                   </bs.Row>
 
@@ -355,7 +279,7 @@ class TabComponent extends React.Component {
                       {`H: ${this.state.champ_shadow.h}px`}
                       <ReactNativeSlider
                         value={this.state.champ_shadow.h}
-                        handleChange={this.sl_champ_shadow_h}
+                        handleChange={(event) => this.setState(Object.assign(this.state, {champ_shadow: Object.assign(this.state.champ_shadow, { h: parseInt(event.currentTarget.value) }) }))}
                         step={1}
                         max={10}
                         min={-10}
@@ -365,7 +289,7 @@ class TabComponent extends React.Component {
                       {`V: ${this.state.champ_shadow.v}px`}
                       <ReactNativeSlider
                         value={this.state.champ_shadow.v}
-                        handleChange={this.sl_bchamp_shadow_v}
+                        handleChange={(event) => this.setState(Object.assign(this.state, {champ_shadow: Object.assign(this.state.champ_shadow, { v: parseInt(event.currentTarget.value) }) }))}
                         step={1}
                         max={10}
                         min={-10}
@@ -375,7 +299,7 @@ class TabComponent extends React.Component {
                       {`B: ${this.state.champ_shadow.b}px`}
                       <ReactNativeSlider
                         value={this.state.champ_shadow.b}
-                        handleChange={this.sl_champ_shadow_b}
+                        handleChange={(event) => this.setState(Object.assign(this.state, {champ_shadow: Object.assign(this.state.champ_shadow, { b: parseInt(event.currentTarget.value) }) }))}
                         step={1}
                         max={10}
                         min={0}
@@ -383,7 +307,7 @@ class TabComponent extends React.Component {
                     </bs.Col>
                     <bs.Col xs={3}>
                       Color
-                      <ColorPicker returnColor={this.cp_csc} defaultColor={this.state.champ_shadow_color} />
+                      <ColorPicker returnColor={(color) => this.setState({ champ_shadow_color: color})} defaultColor={this.state.champ_shadow_color} />
                     </bs.Col>
                   </bs.Row>
 
@@ -393,7 +317,7 @@ class TabComponent extends React.Component {
                       {`H: ${this.state.text_shadow.h}px`}
                       <ReactNativeSlider
                         value={this.state.text_shadow.h}
-                        handleChange={this.sl_text_shadow_h}
+                        handleChange={(event) => this.setState(Object.assign(this.state, {text_shadow: Object.assign(this.state.text_shadow, { h: parseInt(event.currentTarget.value) }) }))}
                         step={1}
                         max={10}
                         min={-10}
@@ -403,7 +327,7 @@ class TabComponent extends React.Component {
                       {`V: ${this.state.text_shadow.v}px`}
                       <ReactNativeSlider
                         value={this.state.text_shadow.v}
-                        handleChange={this.sl_text_shadow_v}
+                        handleChange={(event) => this.setState(Object.assign(this.state, {text_shadow: Object.assign(this.state.text_shadow, { v: parseInt(event.currentTarget.value) }) }))}
                         step={1}
                         max={10}
                         min={-10}
@@ -413,7 +337,7 @@ class TabComponent extends React.Component {
                       {`B: ${this.state.text_shadow.b}px`}
                       <ReactNativeSlider
                         value={this.state.text_shadow.b}
-                        handleChange={this.sl_text_shadow_b}
+                        handleChange={(event) => this.setState(Object.assign(this.state, {text_shadow: Object.assign(this.state.text_shadow, { b: parseInt(event.currentTarget.value) }) }))}
                         step={1}
                         max={10}
                         min={0}
@@ -421,7 +345,7 @@ class TabComponent extends React.Component {
                     </bs.Col>
                     <bs.Col xs={3}>
                       Color
-                      <ColorPicker returnColor={this.cp_tsc} defaultColor={this.state.text_shadow_color} />
+                      <ColorPicker returnColor={(color) => this.setState({ text_shadow_color: color})} defaultColor={this.state.text_shadow_color} />
                     </bs.Col>
                   </bs.Row>
 

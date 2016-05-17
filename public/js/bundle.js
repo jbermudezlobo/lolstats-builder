@@ -55824,9 +55824,28 @@
 	      champ_shadow: _this.props.data ? _this.props.data.champ_shadow : { h: 0, v: 0, b: 10 },
 	      text_shadow: _this.props.data ? _this.props.data.text_shadow : { h: 0, v: 0, b: 10 }
 	    };
-	    ['getLink', 'setName', 'setChampion', 'setWinrate', 'setTier', 'setWeb', 'handleSelect', 'rgbaToString', 'cp_bg', 'cp_text', 'cp_bbc', 'cp_cbc', 'cp_bsc', 'cp_csc', 'cp_tsc', 'sl_back_border_width', 'sl_back_border_radius', 'sl_champ_border_width', 'sl_champ_border_radius', 'setServer'].forEach(function (m) {
-	      _this[m] = _this[m].bind(_this);return null;
-	    });
+	    /*[
+	      'getLink',
+	      'setName',
+	      'setChampion',
+	      'setWinrate',
+	      'setTier',
+	      'setWeb',
+	      'handleSelect',
+	      'rgbaToString',
+	      'cp_bg',
+	      'cp_text',
+	      'cp_bbc',
+	      'cp_cbc',
+	      'cp_bsc',
+	      'cp_csc',
+	      'cp_tsc',
+	      'sl_back_border_width',
+	      'sl_back_border_radius',
+	      'sl_champ_border_width',
+	      'sl_champ_border_radius',
+	      'setServer'
+	    ].forEach(m => { this[m] = this[m].bind(this); return null; });*/
 	    return _this;
 	  }
 
@@ -55877,107 +55896,16 @@
 	      });
 	    }
 	  }, {
-	    key: 'setName',
-	    value: function setName(event) {
-	      this.setState({ summoner_name: event.currentTarget.value });
-	    }
-	  }, {
-	    key: 'setServer',
-	    value: function setServer(event) {
-	      this.setState({ server: event.currentTarget.value });
-	    }
-	  }, {
-	    key: 'setChampion',
-	    value: function setChampion(event) {
-	      this.setState({ show_champion: event.currentTarget.checked });
-	    }
-	  }, {
-	    key: 'setWinrate',
-	    value: function setWinrate(event) {
-	      this.setState({ show_winrate: event.currentTarget.checked });
-	    }
-	  }, {
-	    key: 'setTier',
-	    value: function setTier(event) {
-	      this.setState({ show_tier: event.currentTarget.checked });
-	    }
-	  }, {
-	    key: 'setWeb',
-	    value: function setWeb(event) {
-	      this.setState({ show_web: event.currentTarget.checked });
-	    }
-	  }, {
-	    key: 'handleSelect',
-	    value: function handleSelect(key) {
-	      this.setState({ key: key });
-	    }
-	  }, {
 	    key: 'rgbaToString',
 	    value: function rgbaToString(color) {
 	      return 'rgba(' + color.r + ', ' + color.g + ', ' + color.b + ', ' + color.a + ')';
 	    }
 	  }, {
-	    key: 'stringToRGBA',
-	    value: function stringToRGBA(color) {}
-	  }, {
-	    key: 'cp_bg',
-	    value: function cp_bg(color) {
-	      this.setState({ text_color: color });
-	    }
-	  }, {
-	    key: 'cp_text',
-	    value: function cp_text(color) {
-	      this.setState({ back_border_color: color });
-	    }
-	  }, {
-	    key: 'cp_bbc',
-	    value: function cp_bbc(color) {
-	      this.setState({ champ_border_color: color });
-	    }
-	  }, {
-	    key: 'cp_cbc',
-	    value: function cp_cbc(color) {
-	      this.setState({ back_shadow_color: color });
-	    }
-	  }, {
-	    key: 'cp_bsc',
-	    value: function cp_bsc(color) {
-	      this.setState({ back_shadow_color: color });
-	    }
-	  }, {
-	    key: 'cp_csc',
-	    value: function cp_csc(color) {
-	      this.setState({ champ_shadow_color: color });
-	    }
-	  }, {
-	    key: 'cp_tsc',
-	    value: function cp_tsc(color) {
-	      this.setState({ text_shadow_color: color });
-	    }
-	  }, {
-	    key: 'sl_back_border_width',
-	    value: function sl_back_border_width(event) {
-	      this.setState({ back_border_width: parseInt(event.currentTarget.value) });
-	    }
-	  }, {
-	    key: 'sl_back_border_radius',
-	    value: function sl_back_border_radius(event) {
-	      this.setState({ back_border_radius: parseInt(event.currentTarget.value) });
-	    }
-	  }, {
-	    key: 'sl_champ_border_width',
-	    value: function sl_champ_border_width(event) {
-	      this.setState({ champ_border_width: parseInt(event.currentTarget.value) });
-	    }
-	  }, {
-	    key: 'sl_champ_border_radius',
-	    value: function sl_champ_border_radius(event) {
-	      this.setState({ champ_border_radius: parseInt(event.currentTarget.value) });
-	    }
-	  }, {
 	    key: 'render',
 	    value: function render() {
-	      // console.log(JSON.stringify(this.state));
+	      var _this3 = this;
+
+	      console.log(JSON.stringify(this.state));
 	      return _react2.default.createElement(
 	        'div',
 	        null,
@@ -56013,7 +55941,9 @@
 	            { xs: 6 },
 	            _react2.default.createElement(
 	              bs.Tabs,
-	              { activeKey: this.state.key, onSelect: this.handleSelect, id: 'builder.tabs', justified: true },
+	              { activeKey: this.state.key, onSelect: function onSelect(key) {
+	                  return _this3.setState({ key: key });
+	                }, id: 'builder.tabs', justified: true },
 	              _react2.default.createElement(
 	                bs.Tab,
 	                { eventKey: 1, title: 'Info' },
@@ -56028,7 +55958,9 @@
 	                  _react2.default.createElement(bs.FormControl, {
 	                    type: 'text',
 	                    placeholder: 'Lobo Bot',
-	                    onChange: this.setName
+	                    onChange: function onChange(event) {
+	                      return _this3.setState({ summoner_name: event.currentTarget.value });
+	                    }
 	                  }),
 	                  _react2.default.createElement('br', null),
 	                  _react2.default.createElement(
@@ -56038,7 +55970,9 @@
 	                  ),
 	                  _react2.default.createElement(
 	                    bs.FormControl,
-	                    { componentClass: 'select', placeholder: 'select', defaultValue: this.state.server, onChange: this.setServer },
+	                    { componentClass: 'select', placeholder: 'select', defaultValue: this.state.server, onChange: function onChange(event) {
+	                        return _this3.setState({ server: event.currentTarget.value });
+	                      } },
 	                    _react2.default.createElement(
 	                      'option',
 	                      { value: 0 },
@@ -56110,7 +56044,9 @@
 	                          null,
 	                          _react2.default.createElement(
 	                            bs.Checkbox,
-	                            { inline: true, onChange: this.setChampion, checked: this.state.show_champion },
+	                            { inline: true, onChange: function onChange(event) {
+	                                return _this3.setState({ show_champion: event.currentTarget.checked });
+	                              }, checked: this.state.show_champion },
 	                            'Show champion'
 	                          )
 	                        ),
@@ -56119,7 +56055,9 @@
 	                          null,
 	                          _react2.default.createElement(
 	                            bs.Checkbox,
-	                            { inline: true, onChange: this.setTier, checked: this.state.show_tier },
+	                            { inline: true, onChange: function onChange(event) {
+	                                return _this3.setState({ show_tier: event.currentTarget.checked });
+	                              }, checked: this.state.show_tier },
 	                            'Show tier'
 	                          )
 	                        )
@@ -56132,7 +56070,9 @@
 	                          null,
 	                          _react2.default.createElement(
 	                            bs.Checkbox,
-	                            { inline: true, onChange: this.setWinrate, checked: this.state.show_winrate },
+	                            { inline: true, onChange: function onChange(event) {
+	                                return _this3.setState({ show_winrate: event.currentTarget.checked });
+	                              }, checked: this.state.show_winrate },
 	                            'Show winrate'
 	                          )
 	                        ),
@@ -56141,7 +56081,9 @@
 	                          null,
 	                          _react2.default.createElement(
 	                            bs.Checkbox,
-	                            { inline: true, onChange: this.setWeb, checked: this.state.show_web },
+	                            { inline: true, onChange: function onChange(event) {
+	                                return _this3.setState({ show_web: event.currentTarget.checked });
+	                              }, checked: this.state.show_web },
 	                            'Show web'
 	                          )
 	                        )
@@ -56170,7 +56112,9 @@
 	                      'Width: ' + this.state.back_border_width + 'px',
 	                      _react2.default.createElement(_reactHtml5Slider2.default, {
 	                        value: this.state.back_border_width,
-	                        handleChange: this.sl_back_border_width,
+	                        handleChange: function handleChange(event) {
+	                          return _this3.setState({ back_border_width: parseInt(event.currentTarget.value) });
+	                        },
 	                        step: 1,
 	                        max: 5,
 	                        min: 0
@@ -56182,7 +56126,9 @@
 	                      'Radius: ' + this.state.back_border_radius + 'px',
 	                      _react2.default.createElement(_reactHtml5Slider2.default, {
 	                        value: this.state.back_border_radius,
-	                        handleChange: this.sl_back_border_radius,
+	                        handleChange: function handleChange(event) {
+	                          return _this3.setState({ back_border_radius: parseInt(event.currentTarget.value) });
+	                        },
 	                        step: 1,
 	                        max: 30,
 	                        min: 0
@@ -56192,13 +56138,17 @@
 	                      bs.Col,
 	                      { xs: 3 },
 	                      'Color',
-	                      _react2.default.createElement(_ColorPicker2.default, { returnColor: this.cp_bg, defaultColor: this.state.back_color })
+	                      _react2.default.createElement(_ColorPicker2.default, { returnColor: function returnColor(color) {
+	                          return _this3.setState({ back_color: color });
+	                        }, defaultColor: this.state.back_color })
 	                    ),
 	                    _react2.default.createElement(
 	                      bs.Col,
 	                      { xs: 3 },
 	                      'Border',
-	                      _react2.default.createElement(_ColorPicker2.default, { returnColor: this.cp_bbc, defaultColor: this.state.back_border_color })
+	                      _react2.default.createElement(_ColorPicker2.default, { returnColor: function returnColor(color) {
+	                          return _this3.setState({ back_border_color: color });
+	                        }, defaultColor: this.state.back_border_color })
 	                    )
 	                  ),
 	                  _react2.default.createElement(
@@ -56215,7 +56165,9 @@
 	                      'Width: ' + this.state.champ_border_width + 'px',
 	                      _react2.default.createElement(_reactHtml5Slider2.default, {
 	                        value: this.state.champ_border_width,
-	                        handleChange: this.sl_champ_border_width,
+	                        handleChange: function handleChange(event) {
+	                          return _this3.setState({ champ_border_width: parseInt(event.currentTarget.value) });
+	                        },
 	                        step: 1,
 	                        max: 5,
 	                        min: 0
@@ -56227,7 +56179,9 @@
 	                      'Radius: ' + this.state.champ_border_radius + 'px',
 	                      _react2.default.createElement(_reactHtml5Slider2.default, {
 	                        value: this.state.champ_border_radius,
-	                        handleChange: this.sl_champ_border_radius,
+	                        handleChange: function handleChange(event) {
+	                          return _this3.setState({ champ_border_radius: parseInt(event.currentTarget.value) });
+	                        },
 	                        step: 1,
 	                        max: 30,
 	                        min: 0
@@ -56236,8 +56190,10 @@
 	                    _react2.default.createElement(
 	                      bs.Col,
 	                      { xs: 6 },
-	                      'Color',
-	                      _react2.default.createElement(_ColorPicker2.default, { returnColor: this.cp_cbc, defaultColor: this.state.champ_border_color })
+	                      'Border',
+	                      _react2.default.createElement(_ColorPicker2.default, { returnColor: function returnColor(color) {
+	                          return _this3.setState({ champ_border_color: color });
+	                        }, defaultColor: this.state.champ_border_color })
 	                    )
 	                  ),
 	                  _react2.default.createElement(
@@ -56252,7 +56208,9 @@
 	                      bs.Col,
 	                      { xs: 3 },
 	                      'Color',
-	                      _react2.default.createElement(_ColorPicker2.default, { returnColor: this.cp_text, defaultColor: this.state.text_color })
+	                      _react2.default.createElement(_ColorPicker2.default, { returnColor: function returnColor(color) {
+	                          return _this3.setState({ text_color: color });
+	                        }, defaultColor: this.state.text_color })
 	                    )
 	                  ),
 	                  _react2.default.createElement('br', null),
@@ -56271,7 +56229,9 @@
 	                      'H: ' + this.state.back_shadow.h + 'px',
 	                      _react2.default.createElement(_reactHtml5Slider2.default, {
 	                        value: this.state.back_shadow.h,
-	                        handleChange: this.sl_back_shadow_h,
+	                        handleChange: function handleChange(event) {
+	                          return _this3.setState(Object.assign(_this3.state, { back_shadow: Object.assign(_this3.state.back_shadow, { h: parseInt(event.currentTarget.value) }) }));
+	                        },
 	                        step: 1,
 	                        max: 10,
 	                        min: -10
@@ -56283,7 +56243,9 @@
 	                      'V: ' + this.state.back_shadow.v + 'px',
 	                      _react2.default.createElement(_reactHtml5Slider2.default, {
 	                        value: this.state.back_shadow.v,
-	                        handleChange: this.sl_back_shadow_v,
+	                        handleChange: function handleChange(event) {
+	                          return _this3.setState(Object.assign(_this3.state, { back_shadow: Object.assign(_this3.state.back_shadow, { v: parseInt(event.currentTarget.value) }) }));
+	                        },
 	                        step: 1,
 	                        max: 10,
 	                        min: -10
@@ -56295,7 +56257,9 @@
 	                      'B: ' + this.state.back_shadow.b + 'px',
 	                      _react2.default.createElement(_reactHtml5Slider2.default, {
 	                        value: this.state.back_shadow.b,
-	                        handleChange: this.sl_back_shadow_b,
+	                        handleChange: function handleChange(event) {
+	                          return _this3.setState(Object.assign(_this3.state, { back_shadow: Object.assign(_this3.state.back_shadow, { b: parseInt(event.currentTarget.value) }) }));
+	                        },
 	                        step: 1,
 	                        max: 10,
 	                        min: 0
@@ -56305,7 +56269,9 @@
 	                      bs.Col,
 	                      { xs: 3 },
 	                      'Color',
-	                      _react2.default.createElement(_ColorPicker2.default, { returnColor: this.cp_bsc, defaultColor: this.state.back_shadow_color })
+	                      _react2.default.createElement(_ColorPicker2.default, { returnColor: function returnColor(color) {
+	                          return _this3.setState({ back_shadow_color: color });
+	                        }, defaultColor: this.state.back_shadow_color })
 	                    )
 	                  ),
 	                  _react2.default.createElement(
@@ -56322,7 +56288,9 @@
 	                      'H: ' + this.state.champ_shadow.h + 'px',
 	                      _react2.default.createElement(_reactHtml5Slider2.default, {
 	                        value: this.state.champ_shadow.h,
-	                        handleChange: this.sl_champ_shadow_h,
+	                        handleChange: function handleChange(event) {
+	                          return _this3.setState(Object.assign(_this3.state, { champ_shadow: Object.assign(_this3.state.champ_shadow, { h: parseInt(event.currentTarget.value) }) }));
+	                        },
 	                        step: 1,
 	                        max: 10,
 	                        min: -10
@@ -56334,7 +56302,9 @@
 	                      'V: ' + this.state.champ_shadow.v + 'px',
 	                      _react2.default.createElement(_reactHtml5Slider2.default, {
 	                        value: this.state.champ_shadow.v,
-	                        handleChange: this.sl_bchamp_shadow_v,
+	                        handleChange: function handleChange(event) {
+	                          return _this3.setState(Object.assign(_this3.state, { champ_shadow: Object.assign(_this3.state.champ_shadow, { v: parseInt(event.currentTarget.value) }) }));
+	                        },
 	                        step: 1,
 	                        max: 10,
 	                        min: -10
@@ -56346,7 +56316,9 @@
 	                      'B: ' + this.state.champ_shadow.b + 'px',
 	                      _react2.default.createElement(_reactHtml5Slider2.default, {
 	                        value: this.state.champ_shadow.b,
-	                        handleChange: this.sl_champ_shadow_b,
+	                        handleChange: function handleChange(event) {
+	                          return _this3.setState(Object.assign(_this3.state, { champ_shadow: Object.assign(_this3.state.champ_shadow, { b: parseInt(event.currentTarget.value) }) }));
+	                        },
 	                        step: 1,
 	                        max: 10,
 	                        min: 0
@@ -56356,7 +56328,9 @@
 	                      bs.Col,
 	                      { xs: 3 },
 	                      'Color',
-	                      _react2.default.createElement(_ColorPicker2.default, { returnColor: this.cp_csc, defaultColor: this.state.champ_shadow_color })
+	                      _react2.default.createElement(_ColorPicker2.default, { returnColor: function returnColor(color) {
+	                          return _this3.setState({ champ_shadow_color: color });
+	                        }, defaultColor: this.state.champ_shadow_color })
 	                    )
 	                  ),
 	                  _react2.default.createElement(
@@ -56373,7 +56347,9 @@
 	                      'H: ' + this.state.text_shadow.h + 'px',
 	                      _react2.default.createElement(_reactHtml5Slider2.default, {
 	                        value: this.state.text_shadow.h,
-	                        handleChange: this.sl_text_shadow_h,
+	                        handleChange: function handleChange(event) {
+	                          return _this3.setState(Object.assign(_this3.state, { text_shadow: Object.assign(_this3.state.text_shadow, { h: parseInt(event.currentTarget.value) }) }));
+	                        },
 	                        step: 1,
 	                        max: 10,
 	                        min: -10
@@ -56385,7 +56361,9 @@
 	                      'V: ' + this.state.text_shadow.v + 'px',
 	                      _react2.default.createElement(_reactHtml5Slider2.default, {
 	                        value: this.state.text_shadow.v,
-	                        handleChange: this.sl_text_shadow_v,
+	                        handleChange: function handleChange(event) {
+	                          return _this3.setState(Object.assign(_this3.state, { text_shadow: Object.assign(_this3.state.text_shadow, { v: parseInt(event.currentTarget.value) }) }));
+	                        },
 	                        step: 1,
 	                        max: 10,
 	                        min: -10
@@ -56397,7 +56375,9 @@
 	                      'B: ' + this.state.text_shadow.b + 'px',
 	                      _react2.default.createElement(_reactHtml5Slider2.default, {
 	                        value: this.state.text_shadow.b,
-	                        handleChange: this.sl_text_shadow_b,
+	                        handleChange: function handleChange(event) {
+	                          return _this3.setState(Object.assign(_this3.state, { text_shadow: Object.assign(_this3.state.text_shadow, { b: parseInt(event.currentTarget.value) }) }));
+	                        },
 	                        step: 1,
 	                        max: 10,
 	                        min: 0
@@ -56407,7 +56387,9 @@
 	                      bs.Col,
 	                      { xs: 3 },
 	                      'Color',
-	                      _react2.default.createElement(_ColorPicker2.default, { returnColor: this.cp_tsc, defaultColor: this.state.text_shadow_color })
+	                      _react2.default.createElement(_ColorPicker2.default, { returnColor: function returnColor(color) {
+	                          return _this3.setState({ text_shadow_color: color });
+	                        }, defaultColor: this.state.text_shadow_color })
 	                    )
 	                  )
 	                )
