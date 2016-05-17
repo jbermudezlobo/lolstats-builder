@@ -68,7 +68,7 @@
 
 	// document.getElementsByTagName('title')[0] = config.appTitle;
 
-	config.builderData = JSON.parse(document.getElementById(config.appDataContainer).innerHTML);
+	// config.builderData = JSON.parse(document.getElementById(config.appDataContainer).innerHTML);
 	document.getElementById(config.appDataContainer).innerHTML = "";
 
 	_reactDom2.default.render(_react2.default.createElement(_Main2.default, { builderData: config.builderData }), document.getElementById(config.appContainer));
@@ -21842,27 +21842,16 @@
 
 	var _warning2 = _interopRequireDefault(_warning);
 
-	var warned = {};
-
 	function deprecated(propType, explanation) {
 	  return function validate(props, propName, componentName) {
 	    if (props[propName] != null) {
-	      var message = '"' + propName + '" property of "' + componentName + '" has been deprecated.\n' + explanation;
-	      if (!warned[message]) {
-	        _warning2['default'](false, message);
-	        warned[message] = true;
-	      }
+	      _warning2['default'](false, '"' + propName + '" property of "' + componentName + '" has been deprecated.\n' + explanation);
 	    }
 
 	    return propType(props, propName, componentName);
 	  };
 	}
 
-	function _resetWarned() {
-	  warned = {};
-	}
-
-	deprecated._resetWarned = _resetWarned;
 	module.exports = exports['default'];
 
 /***/ },
@@ -55806,8 +55795,6 @@
 	  function TabComponent(props) {
 	    _classCallCheck(this, TabComponent);
 
-	    // console.log(this.props);
-
 	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(TabComponent).call(this, props));
 
 	    _this.state = _extends({
@@ -55837,12 +55824,13 @@
 	      champ_shadow: { h: 0, v: 0, b: 10 },
 	      text_shadow: { h: 0, v: 0, b: 10 }
 	    }, _this.props.builderData);
+	    _this.generateStyleData = _this.generateStyleData.bind(_this);
 	    return _this;
 	  }
 
 	  _createClass(TabComponent, [{
-	    key: 'generateJSON',
-	    value: function generateJSON() {
+	    key: 'generateStyleData',
+	    value: function generateStyleData() {
 	      return {
 	        summoner_name: this.state.summoner_name,
 	        server: this.state.server,
@@ -55859,10 +55847,14 @@
 	        back_shadow_color: this.state.back_shadow_color,
 	        champ_shadow_color: this.state.champ_shadow_color,
 	        text_shadow_color: this.state.text_shadow_color,
+	        back_shadow: this.state.back_shadow,
+	        champ_shadow: this.state.champ_shadow,
+	        text_shadow: this.state.text_shadow,
 	        back_border_width: this.state.back_border_width,
 	        back_border_radius: this.state.back_border_radius,
 	        champ_border_width: this.state.champ_border_width,
-	        champ_border_radius: this.state.champ_border_radius
+	        champ_border_radius: this.state.champ_border_radius,
+	        stats: {}
 	      };
 	    }
 	  }, {
@@ -55896,7 +55888,8 @@
 	    value: function render() {
 	      var _this3 = this;
 
-	      console.log(JSON.stringify(this.state));
+	      var styleData = this.generateStyleData();
+	      console.log(styleData);
 	      return _react2.default.createElement(
 	        'div',
 	        null,
@@ -55942,80 +55935,93 @@
 	                  'div',
 	                  { className: 'inside-tab' },
 	                  _react2.default.createElement(
-	                    bs.ControlLabel,
+	                    bs.Row,
 	                    null,
-	                    'Summoner name'
-	                  ),
-	                  _react2.default.createElement(bs.FormControl, {
-	                    type: 'text',
-	                    placeholder: 'Lobo Bot',
-	                    onChange: function onChange(event) {
-	                      return _this3.setState({ summoner_name: event.currentTarget.value });
-	                    }
-	                  }),
-	                  _react2.default.createElement('br', null),
-	                  _react2.default.createElement(
-	                    bs.ControlLabel,
-	                    null,
-	                    'Server'
-	                  ),
-	                  _react2.default.createElement(
-	                    bs.FormControl,
-	                    { componentClass: 'select', placeholder: 'select', defaultValue: this.state.server, onChange: function onChange(event) {
-	                        return _this3.setState({ server: event.currentTarget.value });
-	                      } },
 	                    _react2.default.createElement(
-	                      'option',
-	                      { value: 0 },
-	                      'EUW'
+	                      bs.Col,
+	                      { xs: 8 },
+	                      _react2.default.createElement(
+	                        bs.ControlLabel,
+	                        null,
+	                        'Summoner name'
+	                      ),
+	                      _react2.default.createElement(bs.FormControl, {
+	                        type: 'text',
+	                        placeholder: 'Lobo Bot',
+	                        onChange: function onChange(event) {
+	                          return _this3.setState({ summoner_name: event.currentTarget.value });
+	                        }
+	                      })
 	                    ),
 	                    _react2.default.createElement(
-	                      'option',
-	                      { value: 1 },
-	                      'EUNE'
-	                    ),
-	                    _react2.default.createElement(
-	                      'option',
-	                      { value: 2 },
-	                      'LAS'
-	                    ),
-	                    _react2.default.createElement(
-	                      'option',
-	                      { value: 3 },
-	                      'LAN'
-	                    ),
-	                    _react2.default.createElement(
-	                      'option',
-	                      { value: 4 },
-	                      'OCE'
-	                    ),
-	                    _react2.default.createElement(
-	                      'option',
-	                      { value: 5 },
-	                      'BR'
-	                    ),
-	                    _react2.default.createElement(
-	                      'option',
-	                      { value: 6 },
-	                      'NA'
-	                    ),
-	                    _react2.default.createElement(
-	                      'option',
-	                      { value: 7 },
-	                      'KR'
-	                    ),
-	                    _react2.default.createElement(
-	                      'option',
-	                      { value: 8 },
-	                      'TR'
-	                    ),
-	                    _react2.default.createElement(
-	                      'option',
-	                      { value: 9 },
-	                      'RU'
+	                      bs.Col,
+	                      { xs: 4 },
+	                      _react2.default.createElement(
+	                        bs.ControlLabel,
+	                        null,
+	                        'Server'
+	                      ),
+	                      _react2.default.createElement(
+	                        bs.FormControl,
+	                        { componentClass: 'select', placeholder: 'select', defaultValue: this.state.server, onChange: function onChange(event) {
+	                            return _this3.setState({ server: event.currentTarget.value });
+	                          } },
+	                        _react2.default.createElement(
+	                          'option',
+	                          { value: 0 },
+	                          'EUW'
+	                        ),
+	                        _react2.default.createElement(
+	                          'option',
+	                          { value: 1 },
+	                          'EUNE'
+	                        ),
+	                        _react2.default.createElement(
+	                          'option',
+	                          { value: 2 },
+	                          'LAS'
+	                        ),
+	                        _react2.default.createElement(
+	                          'option',
+	                          { value: 3 },
+	                          'LAN'
+	                        ),
+	                        _react2.default.createElement(
+	                          'option',
+	                          { value: 4 },
+	                          'OCE'
+	                        ),
+	                        _react2.default.createElement(
+	                          'option',
+	                          { value: 5 },
+	                          'BR'
+	                        ),
+	                        _react2.default.createElement(
+	                          'option',
+	                          { value: 6 },
+	                          'NA'
+	                        ),
+	                        _react2.default.createElement(
+	                          'option',
+	                          { value: 7 },
+	                          'KR'
+	                        ),
+	                        _react2.default.createElement(
+	                          'option',
+	                          { value: 8 },
+	                          'TR'
+	                        ),
+	                        _react2.default.createElement(
+	                          'option',
+	                          { value: 9 },
+	                          'RU'
+	                        )
+	                      )
 	                    )
 	                  ),
 	                  _react2.default.createElement('br', null),
+	                  _react2.default.createElement('br', null),
+	                  _react2.default.createElement('hr', null),
 	                  _react2.default.createElement(
 	                    bs.ControlLabel,
 	                    null,
@@ -56095,179 +56101,217 @@
 	                  ),
 	                  _react2.default.createElement('br', null),
 	                  _react2.default.createElement(
-	                    bs.ControlLabel,
+	                    bs.Row,
 	                    null,
-	                    'Load animation'
-	                  ),
-	                  _react2.default.createElement(
-	                    bs.FormControl,
-	                    { componentClass: 'select', placeholder: 'select', defaultValue: this.state.load_animation, onChange: function onChange(event) {
-	                        return _this3.setState({ load_animation: event.currentTarget.value });
-	                      } },
 	                    _react2.default.createElement(
-	                      'option',
-	                      { value: 'none' },
-	                      'none'
+	                      bs.Col,
+	                      { xs: 6 },
+	                      _react2.default.createElement(
+	                        bs.ControlLabel,
+	                        null,
+	                        'Load animation'
+	                      ),
+	                      _react2.default.createElement(
+	                        bs.FormControl,
+	                        { componentClass: 'select', placeholder: 'select', defaultValue: this.state.load_animation, onChange: function onChange(event) {
+	                            return _this3.setState({ load_animation: event.currentTarget.value });
+	                          } },
+	                        _react2.default.createElement(
+	                          'option',
+	                          { value: 'none' },
+	                          'none'
+	                        ),
+	                        _react2.default.createElement(
+	                          'option',
+	                          { value: 'bounceIn' },
+	                          'bounceIn'
+	                        ),
+	                        _react2.default.createElement(
+	                          'option',
+	                          { value: 'bounceInDown' },
+	                          'bounceInDown'
+	                        ),
+	                        _react2.default.createElement(
+	                          'option',
+	                          { value: 'bounceInLeft' },
+	                          'bounceInLeft'
+	                        ),
+	                        _react2.default.createElement(
+	                          'option',
+	                          { value: 'bounceInRight' },
+	                          'bounceInRight'
+	                        ),
+	                        _react2.default.createElement(
+	                          'option',
+	                          { value: 'bounceInUp' },
+	                          'bounceInUp'
+	                        ),
+	                        _react2.default.createElement(
+	                          'option',
+	                          { value: 'fadeIn' },
+	                          'fadeIn'
+	                        ),
+	                        _react2.default.createElement(
+	                          'option',
+	                          { value: 'fadeInDown' },
+	                          'fadeInDown'
+	                        ),
+	                        _react2.default.createElement(
+	                          'option',
+	                          { value: 'fadeInDownBig' },
+	                          'fadeInDownBig'
+	                        ),
+	                        _react2.default.createElement(
+	                          'option',
+	                          { value: 'fadeInLeft' },
+	                          'fadeInLeft'
+	                        ),
+	                        _react2.default.createElement(
+	                          'option',
+	                          { value: 'fadeInLeftBig' },
+	                          'fadeInLeftBig'
+	                        ),
+	                        _react2.default.createElement(
+	                          'option',
+	                          { value: 'fadeInRight' },
+	                          'fadeInRight'
+	                        ),
+	                        _react2.default.createElement(
+	                          'option',
+	                          { value: 'fadeInRightBig' },
+	                          'fadeInRightBig'
+	                        ),
+	                        _react2.default.createElement(
+	                          'option',
+	                          { value: 'fadeInUp' },
+	                          'fadeInUp'
+	                        ),
+	                        _react2.default.createElement(
+	                          'option',
+	                          { value: 'fadeInUpBig' },
+	                          'fadeInUpBig'
+	                        ),
+	                        _react2.default.createElement(
+	                          'option',
+	                          { value: 'flipInX' },
+	                          'flipInX'
+	                        ),
+	                        _react2.default.createElement(
+	                          'option',
+	                          { value: 'flipInY' },
+	                          'flipInY'
+	                        ),
+	                        _react2.default.createElement(
+	                          'option',
+	                          { value: 'lightSpeedIn' },
+	                          'lightSpeedIn'
+	                        ),
+	                        _react2.default.createElement(
+	                          'option',
+	                          { value: 'rotateIn' },
+	                          'rotateIn'
+	                        ),
+	                        _react2.default.createElement(
+	                          'option',
+	                          { value: 'rotateInDownLeft' },
+	                          'rotateInDownLeft'
+	                        ),
+	                        _react2.default.createElement(
+	                          'option',
+	                          { value: 'rotateInDownRight' },
+	                          'rotateInDownRight'
+	                        ),
+	                        _react2.default.createElement(
+	                          'option',
+	                          { value: 'rotateInUpLeft' },
+	                          'rotateInUpLeft'
+	                        ),
+	                        _react2.default.createElement(
+	                          'option',
+	                          { value: 'rotateInUpRight' },
+	                          'rotateInUpRight'
+	                        ),
+	                        _react2.default.createElement(
+	                          'option',
+	                          { value: 'slideInUp' },
+	                          'slideInUp'
+	                        ),
+	                        _react2.default.createElement(
+	                          'option',
+	                          { value: 'slideInDown' },
+	                          'slideInDown'
+	                        ),
+	                        _react2.default.createElement(
+	                          'option',
+	                          { value: 'slideInLeft' },
+	                          'slideInLeft'
+	                        ),
+	                        _react2.default.createElement(
+	                          'option',
+	                          { value: 'slideInRight' },
+	                          'slideInRight'
+	                        ),
+	                        _react2.default.createElement(
+	                          'option',
+	                          { value: 'zoomIn' },
+	                          'zoomIn'
+	                        ),
+	                        _react2.default.createElement(
+	                          'option',
+	                          { value: 'zoomInDown' },
+	                          'zoomInDown'
+	                        ),
+	                        _react2.default.createElement(
+	                          'option',
+	                          { value: 'zoomInLeft' },
+	                          'zoomInLeft'
+	                        ),
+	                        _react2.default.createElement(
+	                          'option',
+	                          { value: 'zoomInRight' },
+	                          'zoomInRight'
+	                        ),
+	                        _react2.default.createElement(
+	                          'option',
+	                          { value: 'zoomInUp' },
+	                          'zoomInUp'
+	                        ),
+	                        _react2.default.createElement(
+	                          'option',
+	                          { value: 'rollIn' },
+	                          'rollIn'
+	                        )
+	                      )
 	                    ),
 	                    _react2.default.createElement(
-	                      'option',
-	                      { value: 'bounceIn' },
-	                      'bounceIn'
-	                    ),
-	                    _react2.default.createElement(
-	                      'option',
-	                      { value: 'bounceInDown' },
-	                      'bounceInDown'
-	                    ),
-	                    _react2.default.createElement(
-	                      'option',
-	                      { value: 'bounceInLeft' },
-	                      'bounceInLeft'
-	                    ),
-	                    _react2.default.createElement(
-	                      'option',
-	                      { value: 'bounceInRight' },
-	                      'bounceInRight'
-	                    ),
-	                    _react2.default.createElement(
-	                      'option',
-	                      { value: 'bounceInUp' },
-	                      'bounceInUp'
-	                    ),
-	                    _react2.default.createElement(
-	                      'option',
-	                      { value: 'fadeIn' },
-	                      'fadeIn'
-	                    ),
-	                    _react2.default.createElement(
-	                      'option',
-	                      { value: 'fadeInDown' },
-	                      'fadeInDown'
-	                    ),
-	                    _react2.default.createElement(
-	                      'option',
-	                      { value: 'fadeInDownBig' },
-	                      'fadeInDownBig'
-	                    ),
-	                    _react2.default.createElement(
-	                      'option',
-	                      { value: 'fadeInLeft' },
-	                      'fadeInLeft'
-	                    ),
-	                    _react2.default.createElement(
-	                      'option',
-	                      { value: 'fadeInLeftBig' },
-	                      'fadeInLeftBig'
-	                    ),
-	                    _react2.default.createElement(
-	                      'option',
-	                      { value: 'fadeInRight' },
-	                      'fadeInRight'
-	                    ),
-	                    _react2.default.createElement(
-	                      'option',
-	                      { value: 'fadeInRightBig' },
-	                      'fadeInRightBig'
-	                    ),
-	                    _react2.default.createElement(
-	                      'option',
-	                      { value: 'fadeInUp' },
-	                      'fadeInUp'
-	                    ),
-	                    _react2.default.createElement(
-	                      'option',
-	                      { value: 'fadeInUpBig' },
-	                      'fadeInUpBig'
-	                    ),
-	                    _react2.default.createElement(
-	                      'option',
-	                      { value: 'flipInX' },
-	                      'flipInX'
-	                    ),
-	                    _react2.default.createElement(
-	                      'option',
-	                      { value: 'flipInY' },
-	                      'flipInY'
-	                    ),
-	                    _react2.default.createElement(
-	                      'option',
-	                      { value: 'lightSpeedIn' },
-	                      'lightSpeedIn'
-	                    ),
-	                    _react2.default.createElement(
-	                      'option',
-	                      { value: 'rotateIn' },
-	                      'rotateIn'
-	                    ),
-	                    _react2.default.createElement(
-	                      'option',
-	                      { value: 'rotateInDownLeft' },
-	                      'rotateInDownLeft'
-	                    ),
-	                    _react2.default.createElement(
-	                      'option',
-	                      { value: 'rotateInDownRight' },
-	                      'rotateInDownRight'
-	                    ),
-	                    _react2.default.createElement(
-	                      'option',
-	                      { value: 'rotateInUpLeft' },
-	                      'rotateInUpLeft'
-	                    ),
-	                    _react2.default.createElement(
-	                      'option',
-	                      { value: 'rotateInUpRight' },
-	                      'rotateInUpRight'
-	                    ),
-	                    _react2.default.createElement(
-	                      'option',
-	                      { value: 'slideInUp' },
-	                      'slideInUp'
-	                    ),
-	                    _react2.default.createElement(
-	                      'option',
-	                      { value: 'slideInDown' },
-	                      'slideInDown'
-	                    ),
-	                    _react2.default.createElement(
-	                      'option',
-	                      { value: 'slideInLeft' },
-	                      'slideInLeft'
-	                    ),
-	                    _react2.default.createElement(
-	                      'option',
-	                      { value: 'slideInRight' },
-	                      'slideInRight'
-	                    ),
-	                    _react2.default.createElement(
-	                      'option',
-	                      { value: 'zoomIn' },
-	                      'zoomIn'
-	                    ),
-	                    _react2.default.createElement(
-	                      'option',
-	                      { value: 'zoomInDown' },
-	                      'zoomInDown'
-	                    ),
-	                    _react2.default.createElement(
-	                      'option',
-	                      { value: 'zoomInLeft' },
-	                      'zoomInLeft'
-	                    ),
-	                    _react2.default.createElement(
-	                      'option',
-	                      { value: 'zoomInRight' },
-	                      'zoomInRight'
-	                    ),
-	                    _react2.default.createElement(
-	                      'option',
-	                      { value: 'zoomInUp' },
-	                      'zoomInUp'
-	                    ),
-	                    _react2.default.createElement(
-	                      'option',
-	                      { value: 'rollIn' },
-	                      'rollIn'
+	                      bs.Col,
+	                      { xs: 6 },
+	                      _react2.default.createElement(
+	                        bs.ControlLabel,
+	                        null,
+	                        'Text align'
+	                      ),
+	                      _react2.default.createElement(
+	                        bs.FormControl,
+	                        { componentClass: 'select', placeholder: 'select', defaultValue: this.state.align, onChange: function onChange(event) {
+	                            return _this3.setState({ align: event.currentTarget.value });
+	                          } },
+	                        _react2.default.createElement(
+	                          'option',
+	                          { value: 'left' },
+	                          'left'
+	                        ),
+	                        _react2.default.createElement(
+	                          'option',
+	                          { value: 'center' },
+	                          'center'
+	                        ),
+	                        _react2.default.createElement(
+	                          'option',
+	                          { value: 'right' },
+	                          'right'
+	                        )
+	                      )
 	                    )
 	                  )
 	                )
@@ -56407,10 +56451,10 @@
 	                  ),
 	                  _react2.default.createElement(
 	                    bs.Row,
-	                    { style: { fontSize: '0.8em', textAlign: 'center' } },
+	                    { style: { fontSize: '0.8em' } },
 	                    _react2.default.createElement(
 	                      bs.Col,
-	                      { xs: 3 },
+	                      { xs: 12 },
 	                      'Color',
 	                      _react2.default.createElement(_ColorPicker2.default, { returnColor: function returnColor(color) {
 	                          return _this3.setState({ text_color: color });
@@ -56622,6 +56666,15 @@
 	                  )
 	                )
 	              )
+	            )
+	          ),
+	          _react2.default.createElement(
+	            bs.Col,
+	            { xs: 6 },
+	            _react2.default.createElement(
+	              'code',
+	              null,
+	              JSON.stringify(styleData)
 	            )
 	          )
 	        )

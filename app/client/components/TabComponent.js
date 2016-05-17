@@ -38,9 +38,10 @@ class TabComponent extends React.Component {
       text_shadow: { h: 0, v: 0, b: 10 },
       ...this.props.builderData
     };
+    this.generateStyleData = this.generateStyleData.bind(this);
   }
 
-  generateJSON() {
+  generateStyleData() {
     return {
       summoner_name: this.state.summoner_name,
       server: this.state.server,
@@ -57,10 +58,15 @@ class TabComponent extends React.Component {
       back_shadow_color: this.state.back_shadow_color,
       champ_shadow_color: this.state.champ_shadow_color,
       text_shadow_color: this.state.text_shadow_color,
+      back_shadow: this.state.back_shadow,
+      champ_shadow: this.state.champ_shadow,
+      text_shadow: this.state.text_shadow,
       back_border_width: this.state.back_border_width,
       back_border_radius: this.state.back_border_radius,
       champ_border_width: this.state.champ_border_width,
-      champ_border_radius: this.state.champ_border_radius
+      champ_border_radius: this.state.champ_border_radius,
+      stats: {
+      }
     };
   }
 
@@ -87,7 +93,8 @@ class TabComponent extends React.Component {
   }
 
   render() {
-    console.log(JSON.stringify(this.state));
+    const styleData = this.generateStyleData();
+    console.log(styleData);
     return (
       <div>
         <bs.Row>
@@ -105,29 +112,35 @@ class TabComponent extends React.Component {
             <bs.Tabs activeKey={this.state.key} onSelect={(key) => this.setState({ key })} id='builder.tabs' justified>
               <bs.Tab eventKey={1} title='Info'>
                 <div className='inside-tab'>
-                  <bs.ControlLabel>Summoner name</bs.ControlLabel>
-                  <bs.FormControl
-                    type='text'
-                    placeholder='Lobo Bot'
-                    onChange={(event) => this.setState({ summoner_name: event.currentTarget.value })}
-                  />
-                  <br/>
+                  <bs.Row>
+                    <bs.Col xs={8}>
+                      <bs.ControlLabel>Summoner name</bs.ControlLabel>
+                      <bs.FormControl
+                        type='text'
+                        placeholder='Lobo Bot'
+                        onChange={(event) => this.setState({ summoner_name: event.currentTarget.value })}
+                      />
+                    </bs.Col>
+                    <bs.Col xs={4}>
+                      <bs.ControlLabel>Server</bs.ControlLabel>
+                      <bs.FormControl componentClass='select' placeholder='select' defaultValue={this.state.server} onChange={(event) => this.setState({ server: event.currentTarget.value })}>
+                        <option value={0}>EUW</option>
+                        <option value={1}>EUNE</option>
+                        <option value={2}>LAS</option>
+                        <option value={3}>LAN</option>
+                        <option value={4}>OCE</option>
+                        <option value={5}>BR</option>
+                        <option value={6}>NA</option>
+                        <option value={7}>KR</option>
+                        <option value={8}>TR</option>
+                        <option value={9}>RU</option>
+                      </bs.FormControl>
+                    </bs.Col>
+                  </bs.Row>
 
-                  <bs.ControlLabel>Server</bs.ControlLabel>
-                  <bs.FormControl componentClass='select' placeholder='select' defaultValue={this.state.server} onChange={(event) => this.setState({ server: event.currentTarget.value })}>
-                    <option value={0}>EUW</option>
-                    <option value={1}>EUNE</option>
-                    <option value={2}>LAS</option>
-                    <option value={3}>LAN</option>
-                    <option value={4}>OCE</option>
-                    <option value={5}>BR</option>
-                    <option value={6}>NA</option>
-                    <option value={7}>KR</option>
-                    <option value={8}>TR</option>
-                    <option value={9}>RU</option>
-                  </bs.FormControl>
                   <br/>
-
+                  <br/>
+                  <hr/>
                   <bs.ControlLabel>Misc</bs.ControlLabel>
                   <table style={{ width: '100%' }}>
                     <tbody>
@@ -170,42 +183,54 @@ class TabComponent extends React.Component {
                     </tbody>
                   </table>
                   <br/>
-                  <bs.ControlLabel>Load animation</bs.ControlLabel>
-                  <bs.FormControl componentClass='select' placeholder='select' defaultValue={this.state.load_animation} onChange={(event) => this.setState({ load_animation: event.currentTarget.value })}>
-                    <option value='none'>none</option>
-                    <option value='bounceIn'>bounceIn</option>
-                    <option value='bounceInDown'>bounceInDown</option>
-                    <option value='bounceInLeft'>bounceInLeft</option>
-                    <option value='bounceInRight'>bounceInRight</option>
-                    <option value='bounceInUp'>bounceInUp</option>
-                    <option value='fadeIn'>fadeIn</option>
-                    <option value='fadeInDown'>fadeInDown</option>
-                    <option value='fadeInDownBig'>fadeInDownBig</option>
-                    <option value='fadeInLeft'>fadeInLeft</option>
-                    <option value='fadeInLeftBig'>fadeInLeftBig</option>
-                    <option value='fadeInRight'>fadeInRight</option>
-                    <option value='fadeInRightBig'>fadeInRightBig</option>
-                    <option value='fadeInUp'>fadeInUp</option>
-                    <option value='fadeInUpBig'>fadeInUpBig</option>
-                    <option value='flipInX'>flipInX</option>
-                    <option value='flipInY'>flipInY</option>
-                    <option value='lightSpeedIn'>lightSpeedIn</option>
-                    <option value='rotateIn'>rotateIn</option>
-                    <option value='rotateInDownLeft'>rotateInDownLeft</option>
-                    <option value='rotateInDownRight'>rotateInDownRight</option>
-                    <option value='rotateInUpLeft'>rotateInUpLeft</option>
-                    <option value='rotateInUpRight'>rotateInUpRight</option>
-                    <option value='slideInUp'>slideInUp</option>
-                    <option value='slideInDown'>slideInDown</option>
-                    <option value='slideInLeft'>slideInLeft</option>
-                    <option value='slideInRight'>slideInRight</option>
-                    <option value='zoomIn'>zoomIn</option>
-                    <option value='zoomInDown'>zoomInDown</option>
-                    <option value='zoomInLeft'>zoomInLeft</option>
-                    <option value='zoomInRight'>zoomInRight</option>
-                    <option value='zoomInUp'>zoomInUp</option>
-                    <option value='rollIn'>rollIn</option>
-                  </bs.FormControl>
+                  <bs.Row>
+                    <bs.Col xs={6}>
+                      <bs.ControlLabel>Load animation</bs.ControlLabel>
+                      <bs.FormControl componentClass='select' placeholder='select' defaultValue={this.state.load_animation} onChange={(event) => this.setState({ load_animation: event.currentTarget.value })}>
+                        <option value='none'>none</option>
+                        <option value='bounceIn'>bounceIn</option>
+                        <option value='bounceInDown'>bounceInDown</option>
+                        <option value='bounceInLeft'>bounceInLeft</option>
+                        <option value='bounceInRight'>bounceInRight</option>
+                        <option value='bounceInUp'>bounceInUp</option>
+                        <option value='fadeIn'>fadeIn</option>
+                        <option value='fadeInDown'>fadeInDown</option>
+                        <option value='fadeInDownBig'>fadeInDownBig</option>
+                        <option value='fadeInLeft'>fadeInLeft</option>
+                        <option value='fadeInLeftBig'>fadeInLeftBig</option>
+                        <option value='fadeInRight'>fadeInRight</option>
+                        <option value='fadeInRightBig'>fadeInRightBig</option>
+                        <option value='fadeInUp'>fadeInUp</option>
+                        <option value='fadeInUpBig'>fadeInUpBig</option>
+                        <option value='flipInX'>flipInX</option>
+                        <option value='flipInY'>flipInY</option>
+                        <option value='lightSpeedIn'>lightSpeedIn</option>
+                        <option value='rotateIn'>rotateIn</option>
+                        <option value='rotateInDownLeft'>rotateInDownLeft</option>
+                        <option value='rotateInDownRight'>rotateInDownRight</option>
+                        <option value='rotateInUpLeft'>rotateInUpLeft</option>
+                        <option value='rotateInUpRight'>rotateInUpRight</option>
+                        <option value='slideInUp'>slideInUp</option>
+                        <option value='slideInDown'>slideInDown</option>
+                        <option value='slideInLeft'>slideInLeft</option>
+                        <option value='slideInRight'>slideInRight</option>
+                        <option value='zoomIn'>zoomIn</option>
+                        <option value='zoomInDown'>zoomInDown</option>
+                        <option value='zoomInLeft'>zoomInLeft</option>
+                        <option value='zoomInRight'>zoomInRight</option>
+                        <option value='zoomInUp'>zoomInUp</option>
+                        <option value='rollIn'>rollIn</option>
+                      </bs.FormControl>
+                    </bs.Col>
+                    <bs.Col xs={6}>
+                      <bs.ControlLabel>Text align</bs.ControlLabel>
+                      <bs.FormControl componentClass='select' placeholder='select' defaultValue={this.state.align} onChange={(event) => this.setState({ align: event.currentTarget.value })}>
+                        <option value='left'>left</option>
+                        <option value='center'>center</option>
+                        <option value='right'>right</option>
+                      </bs.FormControl>
+                    </bs.Col>
+                  </bs.Row>
                 </div>
               </bs.Tab>
 
@@ -285,8 +310,8 @@ class TabComponent extends React.Component {
                       <bs.ControlLabel>Text</bs.ControlLabel>
                     </bs.Col>
                   </bs.Row>
-                  <bs.Row style={{ fontSize: '0.8em', textAlign: 'center' }}>
-                    <bs.Col xs={3}>
+                  <bs.Row style={{ fontSize: '0.8em' }}>
+                    <bs.Col xs={12}>
                       Color
                       <ColorPicker returnColor={(color) => this.setState({ text_color: color})} defaultColor={this.state.text_color} />
                     </bs.Col>
@@ -423,6 +448,9 @@ class TabComponent extends React.Component {
                 </div>
               </bs.Tab>
             </bs.Tabs>
+          </bs.Col>
+          <bs.Col xs={6}>
+            <code>{ JSON.stringify(styleData) }</code>
           </bs.Col>
         </bs.Row>
       </div>
