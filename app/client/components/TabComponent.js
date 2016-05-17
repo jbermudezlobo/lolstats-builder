@@ -34,28 +34,6 @@ class TabComponent extends React.Component {
       champ_shadow: this.props.data ? this.props.data.champ_shadow : { h: 0, v: 0, b: 10 },
       text_shadow: this.props.data ? this.props.data.text_shadow : { h: 0, v: 0, b: 10 }
     };
-    /*[
-      'getLink',
-      'setName',
-      'setChampion',
-      'setWinrate',
-      'setTier',
-      'setWeb',
-      'handleSelect',
-      'rgbaToString',
-      'cp_bg',
-      'cp_text',
-      'cp_bbc',
-      'cp_cbc',
-      'cp_bsc',
-      'cp_csc',
-      'cp_tsc',
-      'sl_back_border_width',
-      'sl_back_border_radius',
-      'sl_champ_border_width',
-      'sl_champ_border_radius',
-      'setServer'
-    ].forEach(m => { this[m] = this[m].bind(this); return null; });*/
   }
 
   generateJSON() {
@@ -150,12 +128,40 @@ class TabComponent extends React.Component {
                   <table style={{ width: '100%' }}>
                     <tbody>
                       <tr>
-                        <td><bs.Checkbox inline onChange={(event) => this.setState({ show_champion: event.currentTarget.checked })} checked={this.state.show_champion}>Show champion</bs.Checkbox></td>
-                        <td><bs.Checkbox inline onChange={(event) => this.setState({ show_tier: event.currentTarget.checked })} checked={this.state.show_tier}>Show tier</bs.Checkbox></td>
+                        <td>
+                          <bs.Checkbox
+                          inline
+                          onChange={(event) => this.setState({ show_champion: event.currentTarget.checked })}
+                          checked={this.state.show_champion}>
+                            Show champion
+                          </bs.Checkbox>
+                        </td>
+                        <td>
+                          <bs.Checkbox
+                          inline
+                          onChange={(event) => this.setState({ show_tier: event.currentTarget.checked })}
+                          checked={this.state.show_tier}>
+                            Show tier
+                          </bs.Checkbox>
+                        </td>
                       </tr>
                       <tr>
-                        <td><bs.Checkbox inline onChange={(event) => this.setState({ show_winrate: event.currentTarget.checked })} checked={this.state.show_winrate}>Show winrate</bs.Checkbox></td>
-                        <td><bs.Checkbox inline onChange={(event) => this.setState({ show_web: event.currentTarget.checked })} checked={this.state.show_web}>Show web</bs.Checkbox></td>
+                        <td>
+                          <bs.Checkbox
+                          inline
+                          onChange={(event) => this.setState({ show_winrate: event.currentTarget.checked })}
+                          checked={this.state.show_winrate}>
+                            Show winrate
+                          </bs.Checkbox>
+                        </td>
+                        <td>
+                          <bs.Checkbox
+                          inline
+                          onChange={(event) => this.setState({ show_web: event.currentTarget.checked })}
+                          checked={this.state.show_web}>
+                            Show web
+                          </bs.Checkbox>
+                        </td>
                       </tr>
                     </tbody>
                   </table>
@@ -165,7 +171,11 @@ class TabComponent extends React.Component {
               <bs.Tab eventKey={2} title='Style'>
                 <div className='inside-tab'>
 
-                  <bs.ControlLabel>Background</bs.ControlLabel>
+                  <bs.Row>
+                    <bs.Col xs={12}>
+                      <bs.ControlLabel>Background</bs.ControlLabel>
+                    </bs.Col>
+                  </bs.Row>
                   <bs.Row style={{ fontSize: '0.8em', textAlign: 'center' }}>
                     <bs.Col xs={3}>
                       {`Width: ${this.state.back_border_width}px`}
@@ -197,7 +207,11 @@ class TabComponent extends React.Component {
                     </bs.Col>
                   </bs.Row>
 
-                  <bs.ControlLabel>Champion</bs.ControlLabel>
+                  <bs.Row>
+                    <bs.Col xs={12}>
+                      <bs.ControlLabel>Champion</bs.ControlLabel>
+                    </bs.Col>
+                  </bs.Row>
                   <bs.Row style={{ fontSize: '0.8em', textAlign: 'center' }}>
                     <bs.Col xs={3}>
                       {`Width: ${this.state.champ_border_width}px`}
@@ -219,13 +233,17 @@ class TabComponent extends React.Component {
                         min={0}
                       />
                     </bs.Col>
-                    <bs.Col xs={6}>
+                    <bs.Col xs={3} xsOffset={3}>
                       Border
                       <ColorPicker returnColor={(color) => this.setState({ champ_border_color: color})} defaultColor={this.state.champ_border_color} />
                     </bs.Col>
                   </bs.Row>
 
-                  <bs.ControlLabel>Text</bs.ControlLabel>
+                  <bs.Row>
+                    <bs.Col xs={12}>
+                      <bs.ControlLabel>Text</bs.ControlLabel>
+                    </bs.Col>
+                  </bs.Row>
                   <bs.Row style={{ fontSize: '0.8em', textAlign: 'center' }}>
                     <bs.Col xs={3}>
                       Color
@@ -235,7 +253,11 @@ class TabComponent extends React.Component {
                   <br/>
                   <hr/>
 
-                  <bs.ControlLabel>Background shadow</bs.ControlLabel>
+                  <bs.Row>
+                    <bs.Col xs={12}>
+                      <bs.ControlLabel>Background shadow</bs.ControlLabel>
+                    </bs.Col>
+                  </bs.Row>
                   <bs.Row style={{ fontSize: '0.8em', textAlign: 'center' }}>
                     <bs.Col xs={3}>
                       {`H: ${this.state.back_shadow.h}px`}
@@ -273,7 +295,11 @@ class TabComponent extends React.Component {
                     </bs.Col>
                   </bs.Row>
 
-                  <bs.ControlLabel>Champion shadow</bs.ControlLabel>
+                  <bs.Row>
+                    <bs.Col xs={12}>
+                      <bs.ControlLabel>Champion shadow</bs.ControlLabel>
+                    </bs.Col>
+                  </bs.Row>
                   <bs.Row style={{ fontSize: '0.8em', textAlign: 'center' }}>
                     <bs.Col xs={3}>
                       {`H: ${this.state.champ_shadow.h}px`}
@@ -311,7 +337,11 @@ class TabComponent extends React.Component {
                     </bs.Col>
                   </bs.Row>
 
-                  <bs.ControlLabel>Text shadow</bs.ControlLabel>
+                  <bs.Row>
+                    <bs.Col xs={12}>
+                      <bs.ControlLabel>Text shadow</bs.ControlLabel>
+                    </bs.Col>
+                  </bs.Row>
                   <bs.Row style={{ fontSize: '0.8em', textAlign: 'center' }}>
                     <bs.Col xs={3}>
                       {`H: ${this.state.text_shadow.h}px`}

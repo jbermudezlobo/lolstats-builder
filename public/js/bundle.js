@@ -55824,28 +55824,6 @@
 	      champ_shadow: _this.props.data ? _this.props.data.champ_shadow : { h: 0, v: 0, b: 10 },
 	      text_shadow: _this.props.data ? _this.props.data.text_shadow : { h: 0, v: 0, b: 10 }
 	    };
-	    /*[
-	      'getLink',
-	      'setName',
-	      'setChampion',
-	      'setWinrate',
-	      'setTier',
-	      'setWeb',
-	      'handleSelect',
-	      'rgbaToString',
-	      'cp_bg',
-	      'cp_text',
-	      'cp_bbc',
-	      'cp_cbc',
-	      'cp_bsc',
-	      'cp_csc',
-	      'cp_tsc',
-	      'sl_back_border_width',
-	      'sl_back_border_radius',
-	      'sl_champ_border_width',
-	      'sl_champ_border_radius',
-	      'setServer'
-	    ].forEach(m => { this[m] = this[m].bind(this); return null; });*/
 	    return _this;
 	  }
 
@@ -56044,9 +56022,12 @@
 	                          null,
 	                          _react2.default.createElement(
 	                            bs.Checkbox,
-	                            { inline: true, onChange: function onChange(event) {
+	                            {
+	                              inline: true,
+	                              onChange: function onChange(event) {
 	                                return _this3.setState({ show_champion: event.currentTarget.checked });
-	                              }, checked: this.state.show_champion },
+	                              },
+	                              checked: this.state.show_champion },
 	                            'Show champion'
 	                          )
 	                        ),
@@ -56055,9 +56036,12 @@
 	                          null,
 	                          _react2.default.createElement(
 	                            bs.Checkbox,
-	                            { inline: true, onChange: function onChange(event) {
+	                            {
+	                              inline: true,
+	                              onChange: function onChange(event) {
 	                                return _this3.setState({ show_tier: event.currentTarget.checked });
-	                              }, checked: this.state.show_tier },
+	                              },
+	                              checked: this.state.show_tier },
 	                            'Show tier'
 	                          )
 	                        )
@@ -56070,9 +56054,12 @@
 	                          null,
 	                          _react2.default.createElement(
 	                            bs.Checkbox,
-	                            { inline: true, onChange: function onChange(event) {
+	                            {
+	                              inline: true,
+	                              onChange: function onChange(event) {
 	                                return _this3.setState({ show_winrate: event.currentTarget.checked });
-	                              }, checked: this.state.show_winrate },
+	                              },
+	                              checked: this.state.show_winrate },
 	                            'Show winrate'
 	                          )
 	                        ),
@@ -56081,9 +56068,12 @@
 	                          null,
 	                          _react2.default.createElement(
 	                            bs.Checkbox,
-	                            { inline: true, onChange: function onChange(event) {
+	                            {
+	                              inline: true,
+	                              onChange: function onChange(event) {
 	                                return _this3.setState({ show_web: event.currentTarget.checked });
-	                              }, checked: this.state.show_web },
+	                              },
+	                              checked: this.state.show_web },
 	                            'Show web'
 	                          )
 	                        )
@@ -56099,9 +56089,17 @@
 	                  'div',
 	                  { className: 'inside-tab' },
 	                  _react2.default.createElement(
-	                    bs.ControlLabel,
+	                    bs.Row,
 	                    null,
-	                    'Background'
+	                    _react2.default.createElement(
+	                      bs.Col,
+	                      { xs: 12 },
+	                      _react2.default.createElement(
+	                        bs.ControlLabel,
+	                        null,
+	                        'Background'
+	                      )
+	                    )
 	                  ),
 	                  _react2.default.createElement(
 	                    bs.Row,
@@ -56152,9 +56150,17 @@
 	                    )
 	                  ),
 	                  _react2.default.createElement(
-	                    bs.ControlLabel,
+	                    bs.Row,
 	                    null,
-	                    'Champion'
+	                    _react2.default.createElement(
+	                      bs.Col,
+	                      { xs: 12 },
+	                      _react2.default.createElement(
+	                        bs.ControlLabel,
+	                        null,
+	                        'Champion'
+	                      )
+	                    )
 	                  ),
 	                  _react2.default.createElement(
 	                    bs.Row,
@@ -56189,7 +56195,7 @@
 	                    ),
 	                    _react2.default.createElement(
 	                      bs.Col,
-	                      { xs: 6 },
+	                      { xs: 3, xsOffset: 3 },
 	                      'Border',
 	                      _react2.default.createElement(_ColorPicker2.default, { returnColor: function returnColor(color) {
 	                          return _this3.setState({ champ_border_color: color });
@@ -56197,9 +56203,17 @@
 	                    )
 	                  ),
 	                  _react2.default.createElement(
-	                    bs.ControlLabel,
+	                    bs.Row,
 	                    null,
-	                    'Text'
+	                    _react2.default.createElement(
+	                      bs.Col,
+	                      { xs: 12 },
+	                      _react2.default.createElement(
+	                        bs.ControlLabel,
+	                        null,
+	                        'Text'
+	                      )
+	                    )
 	                  ),
 	                  _react2.default.createElement(
 	                    bs.Row,
@@ -56216,9 +56230,17 @@
 	                  _react2.default.createElement('br', null),
 	                  _react2.default.createElement('hr', null),
 	                  _react2.default.createElement(
-	                    bs.ControlLabel,
+	                    bs.Row,
 	                    null,
-	                    'Background shadow'
+	                    _react2.default.createElement(
+	                      bs.Col,
+	                      { xs: 12 },
+	                      _react2.default.createElement(
+	                        bs.ControlLabel,
+	                        null,
+	                        'Background shadow'
+	                      )
+	                    )
 	                  ),
 	                  _react2.default.createElement(
 	                    bs.Row,
@@ -56275,9 +56297,17 @@
 	                    )
 	                  ),
 	                  _react2.default.createElement(
-	                    bs.ControlLabel,
+	                    bs.Row,
 	                    null,
-	                    'Champion shadow'
+	                    _react2.default.createElement(
+	                      bs.Col,
+	                      { xs: 12 },
+	                      _react2.default.createElement(
+	                        bs.ControlLabel,
+	                        null,
+	                        'Champion shadow'
+	                      )
+	                    )
 	                  ),
 	                  _react2.default.createElement(
 	                    bs.Row,
@@ -56334,9 +56364,17 @@
 	                    )
 	                  ),
 	                  _react2.default.createElement(
-	                    bs.ControlLabel,
+	                    bs.Row,
 	                    null,
-	                    'Text shadow'
+	                    _react2.default.createElement(
+	                      bs.Col,
+	                      { xs: 12 },
+	                      _react2.default.createElement(
+	                        bs.ControlLabel,
+	                        null,
+	                        'Text shadow'
+	                      )
+	                    )
 	                  ),
 	                  _react2.default.createElement(
 	                    bs.Row,
