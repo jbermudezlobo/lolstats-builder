@@ -1,7 +1,6 @@
 import React from 'react';
 import * as bs from 'react-bootstrap';
 import _ from 'lodash';
-import TierColors from './../utils/TierColors';
 
 import TabComponent from './TabComponent';
 
