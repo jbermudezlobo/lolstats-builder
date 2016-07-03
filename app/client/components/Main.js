@@ -3,8 +3,13 @@ import * as bs from 'react-bootstrap';
 import _ from 'lodash';
 
 import TabComponent from './TabComponent';
+import BuilderSC from './smart-components/BuilderSC';
 
 class Main extends React.Component {
+  static propTypes = {
+    builderData: React.PropTypes.object
+  }
+
   constructor(props) {
     super(props);
   };
@@ -12,17 +17,14 @@ class Main extends React.Component {
   render() {
     const title = (<h3>Builder</h3>);
     return (
-      <bs.Col xs={12}>
+      <bs.Col sm={12}>
         <bs.Panel header={title}>
-          <TabComponent builderData={this.props.builderData}/>
+          <BuilderSC />
         </bs.Panel>
       </bs.Col>
     );
   };
 }
 
-Main.propTypes = {
-  builderData: React.PropTypes.object
-};
-
 export default Main;
+// <TabComponent builderData={this.props.builderData}/>

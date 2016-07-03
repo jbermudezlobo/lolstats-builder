@@ -273,7 +273,7 @@ class TabComponent extends React.Component {
         <hr/>
         <bs.Row>
           <bs.Col xs={6}>
-            <bs.Tabs activeKey={this.state.key} onSelect={ this.setKey } id='builder.tabs' justified>
+            <bs.Tabs activeKey={ this.state.key } onSelect={ this.setKey } id='builder.tabs' justified>
               <bs.Tab eventKey={1} title='Info'>
                 <div className='inside-tab'>
                   <bs.Row>
